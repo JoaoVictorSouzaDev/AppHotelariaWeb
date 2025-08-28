@@ -1,0 +1,39 @@
+input {
+    border: none;
+    border-bottom: 1px solid #ccc;
+    padding: 8px 0;
+    margin-bottom: 15px;
+    width: 100%;
+    font-family: "Lato", "sans-serif";
+    font-weight: 200;
+    font-size: 18px;
+}
+
+input:focus {
+    outline: none;
+}
+
+a {
+    color: #4b0505;
+    font-size: 16px;
+}
+
+.titulo {
+    font-family: "Lato", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 20px;
+}
+
+
+.btn-primary {
+    background-color: #4b0505;
+    border: none;
+    font-family: "Lato", "sans-serif";
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.btn-primary:hover {
+    background-color: #4b0505;
+}
