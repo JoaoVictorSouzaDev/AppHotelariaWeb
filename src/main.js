@@ -9,7 +9,7 @@ const routes = {
 };
 
 function getPath() {
-    const url = (location.pathname || "").replace("/MeuSite/", "/").trim();
+    const url = (location.pathname || "").replace("/AppHotelariaWeb/", "/").trim();
     console.log(url);
     return url && url.startsWith("/") ? url : "/login";
 }

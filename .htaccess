@@ -1,5 +1,5 @@
 RewriteEngine ON
-RewriteBase /MeuSite/
+RewriteBase /AppHotelariaWeb/
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
