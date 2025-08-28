@@ -1,6 +1,7 @@
 <?php
 
     require_once __DIR__ . "/../models/UserModel.php";
+    require_once "PasswordController.php";
 
     class AuthController{
         public static function login($conn, $data){
