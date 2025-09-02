@@ -1,3 +1,4 @@
+import { loginRequest } from "../api/authAPI.js";
 import Form from "../components/Form.js";
 import Navbar from "../components/Navbar.js";
  
@@ -11,7 +12,6 @@ export default function renderLoginPage() {
     const formulario = Form();
 
     const linkVoltar = document.createElement('a');
-
     linkVoltar.textContent = "Não possui uma conta? Cadastre-se";
     linkVoltar.href = 'register';
     linkVoltar.style.textAlign = 'center';
@@ -21,4 +21,23 @@ export default function renderLoginPage() {
     const contentForm = formulario.querySelector('form');
     contentForm.insertBefore(linkVoltar, contentForm.children[3]);
 
+    //Inputs e botão submit
+    const inputEmail = contentForm.querySelector('input[type="email"]');
+    const inputSenha = contentForm.querySelector('input[type="password"]');
+    const btn = contentForm.querySelector('button[type="submit;"]');
+
+    //Monitora o clique no botão
+    contentForm.addEventListener("submit", async (e) => {
+        const email = inputEmail.value.trim();
+        const senha = inputSenha.value.trim();
+
+        try {
+            const result = await loginRequest(email, senha);
+            console.log("Login efetuado com sucesso!");
+            //window.location.pathname = /home;
+        } 
+        catch {
+            console.log("Vish...");
+        } 
+    });
 }
