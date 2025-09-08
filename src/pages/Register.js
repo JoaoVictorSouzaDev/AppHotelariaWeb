@@ -1,5 +1,6 @@
 import Form from "../components/Form.js";
 import Navbar from "../components/Navbar.js";
+import Footer from "../components/Footer.js";
 
 export default function renderRegisterPage() {
     const nav = document.getElementById('navbar');
@@ -35,5 +36,9 @@ export default function renderRegisterPage() {
 
     contentForm.insertBefore(conSenha, contentForm.children[3]);
 
+    const footer = document.getElementById('footer');
+    footer.innerHTML = '';
 
+    const footers = Footer();
+    footer.appendChild(footers);
 }

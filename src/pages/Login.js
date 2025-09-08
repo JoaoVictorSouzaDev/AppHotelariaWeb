@@ -1,6 +1,7 @@
-import { loginRequest } from "../api/authAPI.js";
+import { loginRequest, saveToken } from "../api/authAPI.js";
 import Form from "../components/Form.js";
 import Navbar from "../components/Navbar.js";
+import Footer from "../components/Footer.js";
  
 export default function renderLoginPage() {
     const nav = document.getElementById('navbar');
@@ -28,16 +29,20 @@ export default function renderLoginPage() {
 
     //Monitora o clique no botão
     contentForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
         const email = inputEmail.value.trim();
         const senha = inputSenha.value.trim();
 
         try {
             const result = await loginRequest(email, senha);
-            console.log("Login efetuado com sucesso!");
-            //window.location.pathname = /home;
+            saveToken(result.token);
+            //window.location.pathname = "AppHotelariaWeb/home";
         } 
         catch {
-            console.log("Vish...");
+            console.log("Erro");
         } 
     });
+
+    const footers = Footer();
+    footer.appendChild(footers);
 }
