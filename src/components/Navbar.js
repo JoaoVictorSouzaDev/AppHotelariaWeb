@@ -2,9 +2,10 @@ export default function Navbar() {
     const navbar = document.createElement('div');
     navbar.innerHTML = 
     `
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="home"><img src="public/assets/images/LogoHotelBlack.png" style = "width: 30px; height: 30px;"></a>
+            <a class="navbar-brand" href="home">
+            <img src="public/assets/images/LogoHotelBlack.png" style = "width: 30px; height: 30px;"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
@@ -14,7 +15,7 @@ export default function Navbar() {
                 <a class="nav-link active" aria-current="page" href="home">Home</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" href="">Link</a>
+                <a class="nav-link" href="#">Link</a>
                 </li>
                 <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -27,6 +28,7 @@ export default function Navbar() {
                     <li><a class="dropdown-item" href="#">Something else here</a></li>
                 </ul>
                 </li>
+ 
                 <li class="nav-item">
                 <a class="nav-link" href="register">Cadastre-se</a>
                 </li>
@@ -46,3 +48,5 @@ export default function Navbar() {
 
     return navbar;
 }
+
+

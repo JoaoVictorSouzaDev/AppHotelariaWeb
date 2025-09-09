@@ -37,3 +37,39 @@ a {
 .btn-primary:hover {
     background-color: #4b0505;
 }
+
+#root {
+    flex-direction: column;
+}
+
+/*Hero Section*/
+.hero-frame {
+    height: 56vh;
+    margin: 0 auto;
+    overflow: hidden; /*impede que a imagem vaze do quadro*/
+    background: #f3f5f7; /*Aplicar cor ao fundo quando a imagem nao ocupa todo o espaço*/
+}
+ 
+.hero-img {
+    width: 100%;
+    height: 100%;
+    /*Aplica propritedade cover para que a imagem preecha o quadro*/
+    object-fit: cover;
+    object-position: center;
+}
+
+@media (max-width: 576px) {
+    .hero-frame {
+        height: 50vh;
+    }
+}
+
+.containerCard {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    margin-top: 70px;
+}
+
