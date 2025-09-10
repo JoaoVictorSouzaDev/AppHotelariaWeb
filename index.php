@@ -19,15 +19,15 @@ $route = $segments[0] ?? null;
 $subRoute = $segments[1] ?? null;
 
 if ($route != "api") {
-    //require "teste.php";
-    require __DIR__ . "/public/index.html";
+    require "teste.php";
+    //require __DIR__ . "/public/index.html";
     exit;
 
 } elseif ($route === "api") {
-    if(in_array($subRoute, ["login"])) {
+    if (in_array($subRoute, ["login", "rooms"])) {
         require "routes/${subRoute}.php";
     } else {
-    return jsonResponse(['mesage'=>'rota não encontrada', 404]);
+        return jsonResponse(['mesage' => 'rota não encontrada', 404]);
     }
     exit;
 } else {
