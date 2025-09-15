@@ -33,7 +33,7 @@ export default function Navbar() {
                 <a class="nav-link" href="register">Cadastre-se</a>
                 </li>
  
-                <li class="nav-item">
+                <li class="nav-itepsm">
                 <a class="nav-link" href="login">Login</a>
                 </li>
             </ul>

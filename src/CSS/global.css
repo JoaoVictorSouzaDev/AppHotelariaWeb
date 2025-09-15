@@ -1,3 +1,4 @@
+
 input {
     border: none;
     border-bottom: 1px solid #ccc;
@@ -44,18 +45,14 @@ a {
 
 /*Hero Section*/
 .hero-frame {
-    height: 56vh;
-    margin: 0 auto;
     overflow: hidden; /*impede que a imagem vaze do quadro*/
     background: #f3f5f7; /*Aplicar cor ao fundo quando a imagem nao ocupa todo o espaço*/
 }
  
-.hero-img {
-    width: 100%;
-    height: 100%;
-    /*Aplica propritedade cover para que a imagem preecha o quadro*/
+.hero img, .hero {
+    height: 70vh;
     object-fit: cover;
-    object-position: center;
+    object-position: top right;
 }
 
 @media (max-width: 576px) {
@@ -73,3 +70,24 @@ a {
     margin-top: 70px;
 }
 
+.divDateSelector {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 50px;
+    height: 70px;
+}
+
+.inputDate {
+    width: 250px;
+    height: 70px;
+    margin-bottom: 0;
+}
+
+.buttonSearch {
+    width: 250px;
+    height: 70px;
+    font-size: 16px;
+}

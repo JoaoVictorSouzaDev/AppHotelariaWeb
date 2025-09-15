@@ -3,6 +3,7 @@ import Card from "../components/RoomCard.js";
 import Hero from "../components/Hero.js";
 import Navbar from "../components/Navbar.js";
 import Footer from "../components/Footer.js";
+import DateSelector from "../components/DateSelector.js";
 
 export default function renderHeroPage() {
     const nav = document.getElementById('navbar');
@@ -15,7 +16,10 @@ export default function renderHeroPage() {
     divRoot.innerHTML = '';
 
     const hero = Hero();
-    divRoot.appendChild(hero); 
+    divRoot.appendChild(hero);
+    
+    const dateSelector = DateSelector()
+    divRoot.appendChild(dateSelector);
 
     const card = Card();
     divRoot.appendChild(card);
@@ -24,5 +28,5 @@ export default function renderHeroPage() {
     foot.innerHTML = '';
     
     const footer = Footer();
-    foot.appendChild(footer);
+    divRoot.appendChild(footer);
 }

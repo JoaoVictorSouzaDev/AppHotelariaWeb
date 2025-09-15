@@ -17,9 +17,6 @@ export default function renderRegisterPage() {
     const btnRegister = formulario.querySelector('button');
     btnRegister.textContent = 'Cadastrar';
 
-    const linkVoltar = document.querySelector('a');
-    linkVoltar.textContent = 'Voltar a login'
-
     const contentForm = formulario.querySelector('form');
 
     //Novos Elementos

@@ -1,7 +1,7 @@
 export default function Hero() {
 
     const containerHero = document.createElement('div');
-    containerHero.className = "hero w-100 d-flex justify-content-center";
+    containerHero.className = "hero w-100 d-flex justify-content-center containerHero";
     containerHero.innerHTML =
     `
     <div class = "hero-frame rounded-4 w-100">
@@ -32,10 +32,6 @@ export default function Hero() {
   </button>
 </div>
  </div>
-
-    
-      
-   
     `;
     
     return containerHero;
