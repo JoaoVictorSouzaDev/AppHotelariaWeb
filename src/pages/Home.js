@@ -21,6 +21,21 @@ export default function renderHeroPage() {
     const dateSelector = DateSelector()
     divRoot.appendChild(dateSelector);
 
+    const tituloCard = document.createElement('h1');
+    tituloCard.textContent = 'Conheça nossos quartos'
+    tituloCard.className = 'titulo';
+    tituloCard.style.fontSize = '24px';
+    tituloCard.style.textAlign = 'center';
+    tituloCard.style.marginTop = '3%';
+    divRoot.appendChild(tituloCard)
+
+    const subTituloCard = document.createElement('h2');
+    subTituloCard.textContent = 'Conforto e elegância que se unem para criar a sua experiência de estadia perfeita.'
+    subTituloCard.className = 'subTitulo';
+    subTituloCard.style.fontSize = '18px';
+    subTituloCard.style.textAlign = 'center';
+    divRoot.appendChild(subTituloCard);
+
     const card = Card();
     divRoot.appendChild(card);
 
@@ -28,5 +43,5 @@ export default function renderHeroPage() {
     foot.innerHTML = '';
     
     const footer = Footer();
-    divRoot.appendChild(footer);
+    foot.appendChild(footer);
 }

@@ -5,7 +5,7 @@ export default function Form(){
     divRoot.style.alignItems = "center";
 
     const container = document.createElement('div');
-    container.className = 'card p-4 shadow-lg';
+    container.className = 'card p-4 shadow-lg containerForm';
     container.style.width = '100%';
     container.style.maxWidth = '500px';
     divRoot.appendChild(container);

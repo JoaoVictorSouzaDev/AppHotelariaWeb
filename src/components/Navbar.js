@@ -1,5 +1,6 @@
 export default function Navbar() {
     const navbar = document.createElement('div');
+    navbar.className = "navbarTop"
     navbar.innerHTML = 
     `
   <nav class="navbar navbar-expand-lg bg-body-tertiary">

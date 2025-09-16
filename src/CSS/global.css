@@ -1,4 +1,12 @@
 
+.containerForm {
+    margin: 10% 10% 0 10%;
+}
+
+select:focus {
+  outline: none;
+}
+
 input {
     border: none;
     border-bottom: 1px solid #ccc;
@@ -26,6 +34,13 @@ a {
     font-size: 20px;
 }
 
+.subTitulo {
+    font-family: "Lato", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 20px;
+}
+
 
 .btn-primary {
     background-color: #4b0505;
@@ -41,6 +56,15 @@ a {
 
 #root {
     flex-direction: column;
+    margin-bottom: 5%;
+}
+
+.navbarTop {
+    position: fixed;
+    top: 0;          
+    left: 0;        
+    width: 100%;    
+    z-index: 1000;  
 }
 
 /*Hero Section*/
@@ -87,7 +111,7 @@ a {
 }
 
 .buttonSearch {
-    width: 250px;
+    width: 140px;
     height: 70px;
     font-size: 16px;
 }
