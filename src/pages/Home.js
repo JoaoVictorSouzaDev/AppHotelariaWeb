@@ -36,8 +36,15 @@ export default function renderHeroPage() {
     subTituloCard.style.textAlign = 'center';
     divRoot.appendChild(subTituloCard);
 
-    const card = Card();
-    divRoot.appendChild(card);
+    const cardDiv = document.createElement('div');
+    cardDiv.className = 'cardDiv';
+
+    for (var i=0; i < 3; i++) {
+        const card = Card();
+        cardDiv.appendChild(card);
+    }
+
+    divRoot.appendChild(cardDiv);
 
     const foot = document.getElementById('footer');
     foot.innerHTML = '';
