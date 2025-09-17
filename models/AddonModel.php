@@ -1,16 +1,16 @@
 <?php
 
-    class ClientModel {
+    class AddonsModel {
 
         public static function listAll($conn) {
-        $sql = "SELECT * FROM clientes";
+        $sql = "SELECT * FROM adicionais";
         $result = $conn->query($sql);
 
         return $result->fetch_all(MYSQLI_ASSOC);
         }
 
         public static function searchById($conn, $id) {
-        $sql = "SELECT * FROM clientes WHERE id= ?";
+        $sql = "SELECT * FROM adicionais WHERE id= ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $id);
         $stmt->execute();
@@ -19,16 +19,12 @@
         }
 
         public static function create($conn, $data) {
-        $sql = "INSERT INTO  clientes (nome, cpf, telefone, email, senha, fk_funcoes) VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO  adicionais (nome, preco) VALUES (?, ?)";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param(
-            "sssssi",
+            "sd",
             $data["nome"],
-            $data["cpf"],
-            $data["telefone"],
-            $data["email"],
-            $data["senha"],
-            $data["fk_funcoes"]
+            $data["preco"],
         );
 
         return $stmt->execute();
@@ -36,16 +32,12 @@
 
         public static function update($conn, $id, $data) {
 
-        $sql = "UPDATE clientes SET nome=?, cpf=?, telefone=?, email=?, senha=?, fk_funcoes=? WHERE id=?";
+        $sql = "UPDATE adicionais SET nome=?, preco=? WHERE id=?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param(
-            "sssssii",
+            "sdi",
             $data["nome"],
-            $data["cpf"],
-            $data["telefone"],
-            $data["email"],
-            $data["senha"],
-            $data["fk_funcoes"],
+            $data["preco"],
             $id
         );
 
@@ -53,7 +45,7 @@
         }
 
         public static function delete($conn) {
-        $sql = "DELETE FROM clientes WHERE id= ?";
+        $sql = "DELETE FROM adicionais WHERE id= ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $id);
 

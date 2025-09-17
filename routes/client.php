@@ -1,21 +1,21 @@
 <?php
 
-    require_once __DIR__ . "/../controllers/RoomController.php";
+    require_once __DIR__ . "/../controllers/ClientController.php";
 
     if ($_SERVER['REQUEST_METHOD'] === "GET") {
         $id = $segments[2] ?? null;
 
         if (isset($id)) {
-            RoomController::getById($conn, $id);
+            ClientController::getById($conn, $id);
         } else {
-            RoomController::getAll($conn);
+            ClientController::getAll($conn);
         }
 
     } else if ($_SERVER['REQUEST_METHOD'] === "DELETE") {
         $id = $segments[2] ?? null;
 
         if (isset($id)) {
-            RoomController::delete($conn, $id);
+            ClientController::delete($conn, $id);
         } else {
             jsonResponse(["message"=>"Id necessario!"], 400);
         }
@@ -24,7 +24,7 @@
         $data = json_decode(file_get_contents('php://input'), true);
 
         if (isset($data)) {
-            RoomController::create($conn, $data);
+            ClientController::create($conn, $data);
         } else {
             jsonResponse(["message"=>"Atributos Invalidos!"], 400);
         }
@@ -34,7 +34,7 @@
         $id = $data['id'];
 
         if (isset($id, $data)) {
-            RoomController::update($conn, $id, $data);
+            ClientController::update($conn, $id, $data);
         } else {
             jsonResponse(["message"=>"Atributos Invalidos!"], 400);
         }

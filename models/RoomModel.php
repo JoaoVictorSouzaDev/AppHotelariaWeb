@@ -19,15 +19,13 @@ class RoomModel
     }
 
 
-    public static function getAll($conn)
-    {
+    public static function getAll($conn) {
         $sql = "SELECT * FROM quartos";
         $result = $conn->query($sql);
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public static function searchById($conn, $id)
-    {
+    public static function searchById($conn, $id) {
         $sql = "SELECT * FROM quartos WHERE id= ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $id);
@@ -35,8 +33,7 @@ class RoomModel
         return $stmt->get_result()->fetch_assoc();
     }
 
-    public static function update($conn, $id, $data)
-    {
+    public static function update($conn, $id, $data) {
         $sql = "UPDATE quartos SET nome=?, numero=?, qtd_cama_casal=?, qtd_cama_solteiro=?, preco=?, disponivel=? WHERE id= ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param(
