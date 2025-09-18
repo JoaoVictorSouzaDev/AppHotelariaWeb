@@ -5,6 +5,7 @@ require_once __DIR__ . "/controllers/RoomController.php";
 require_once __DIR__ . "/controllers/ClientController.php";
 require_once __DIR__ . "/controllers/AddonController.php";
 require_once __DIR__ . "/controllers/RequestController.php";
+require_once __DIR__ . "/controllers/ReservationController.php";
 require_once __DIR__ . "/controllers/PasswordController.php";
 require_once __DIR__ . "/helpers/token_jwt.php";
 
@@ -17,6 +18,5 @@ $data = [
     "fk_funcoes" => 1
 ];
 
-RequestController::getAll($conn);
 
 ?>

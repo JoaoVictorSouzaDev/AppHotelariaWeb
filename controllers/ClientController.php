@@ -4,7 +4,7 @@ require_once "PasswordController.php";
 
 class clientController {
      public static function create($conn, $data) {
-        $data['senha'] = PasswordController::generateHash($password = $data['senha']);
+        $data['senha'] = PasswordController::generateHash($data['senha']);
         $result = ClientModel::create($conn, $data);
         if ($result) {
             return jsonResponse(['message' => 'Cliente criado com sucesso']);
@@ -14,13 +14,13 @@ class clientController {
     }
 
     public static function getAll($conn) {
-    $roomList = ClientModel::listAll($conn);
-    return jsonResponse($roomList);
+    $clientList = ClientModel::listAll($conn);
+    return jsonResponse($clientList);
     }
 
     public static function getById($conn, $id) {
-    $room = ClientModel::searchById($conn, $id);
-    return jsonResponse($room);
+    $client = ClientModel::searchById($conn, $id);
+    return jsonResponse($client);
     }
 
     public static function delete($conn, $id) {

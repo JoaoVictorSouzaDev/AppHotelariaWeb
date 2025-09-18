@@ -1,6 +1,9 @@
 <?php
 
+    //Pronto
+
     require_once __DIR__ . "/../controllers/AddonController.php";
+    require_once __DIR__ . "/../controllers/DataController.php";
 
     if ($_SERVER['REQUEST_METHOD'] === "GET") {
         $id = $segments[2] ?? null;
@@ -12,7 +15,8 @@
         }
 
     } else if ($_SERVER['REQUEST_METHOD'] === "DELETE") {
-        $id = $segments[2] ?? null;
+        $data = json_decode(file_get_contents('php://input'), true);
+        $id = $data['id'];
 
         if (isset($id)) {
             AddonsController::delete($conn, $id);
@@ -22,6 +26,12 @@
     
     } else if ($_SERVER['REQUEST_METHOD'] === "POST") {
         $data = json_decode(file_get_contents('php://input'), true);
+
+        if (validadePrice($data['preco'])) {
+            jsonResponse(["message"=>"Brabo!"], 400);
+        } else {
+            jsonResponse(["message"=>"Paia!"], 400);
+        }
 
         if (isset($data)) {
             AddonsController::create($conn, $data);
@@ -45,5 +55,6 @@
         "message"=>"Metodo não permitido"
         ], 405);
     }
+
 
 ?>

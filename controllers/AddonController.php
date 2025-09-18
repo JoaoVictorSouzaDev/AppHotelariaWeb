@@ -13,13 +13,13 @@ class addonsController {
     }
 
     public static function getAll($conn) {
-    $roomList = AddonsModel::listAll($conn);
-    return jsonResponse($roomList);
+    $addonList = AddonsModel::listAll($conn);
+    return jsonResponse($addonList);
     }
 
     public static function getById($conn, $id) {
-    $room = AddonsModel::searchById($conn, $id);
-    return jsonResponse($room);
+    $addon = AddonsModel::searchById($conn, $id);
+    return jsonResponse($addon);
     }
 
     public static function delete($conn, $id) {

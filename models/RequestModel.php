@@ -31,6 +31,26 @@
         return $result->fetch_all(MYSQLI_ASSOC);
         }
 
+        public static function update($conn, $id, $data) {
+        $sql = "UPDATE pedidos SET pagamento=? WHERE id= ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param(
+            "si",
+            $data["pagamento"],
+            $id
+        );
+
+        return $stmt->execute();
+        }
+
+        public static function delete($conn, $id) {
+        $sql = "DELETE FROM pedidos WHERE id= ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $id);
+            
+        return $stmt->execute();
+        }
+
     }
 
 ?>

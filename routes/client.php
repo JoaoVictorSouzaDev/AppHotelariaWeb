@@ -1,6 +1,7 @@
 <?php
-
     require_once __DIR__ . "/../controllers/ClientController.php";
+
+    //pronto
 
     if ($_SERVER['REQUEST_METHOD'] === "GET") {
         $id = $segments[2] ?? null;
@@ -12,7 +13,8 @@
         }
 
     } else if ($_SERVER['REQUEST_METHOD'] === "DELETE") {
-        $id = $segments[2] ?? null;
+        $data = json_decode(file_get_contents('php://input'), true);
+        $id = $data['id'];
 
         if (isset($id)) {
             ClientController::delete($conn, $id);

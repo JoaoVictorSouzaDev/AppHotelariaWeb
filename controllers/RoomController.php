@@ -12,8 +12,7 @@ class RoomController {
         }
     }
 
-    public static function getAll($conn)
-    {
+    public static function getAll($conn) {
     $roomList = RoomModel::getAll($conn);
     return jsonResponse($roomList);
     }

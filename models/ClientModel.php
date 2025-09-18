@@ -3,14 +3,14 @@
     class ClientModel {
 
         public static function listAll($conn) {
-        $sql = "SELECT * FROM clientes";
+        $sql = "SELECT id, nome, cpf, telefone, email, fk_funcoes FROM clientes";
         $result = $conn->query($sql);
 
         return $result->fetch_all(MYSQLI_ASSOC);
         }
 
         public static function searchById($conn, $id) {
-        $sql = "SELECT * FROM clientes WHERE id= ?";
+        $sql = "SELECT id, nome, cpf, telefone, email, fk_funcoes FROM clientes WHERE id= ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $id);
         $stmt->execute();
@@ -52,12 +52,12 @@
         return $stmt->execute();
         }
 
-        public static function delete($conn) {
-        $sql = "DELETE FROM clientes WHERE id= ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("i", $id);
+        public static function delete($conn, $id) {
+            $sql = "DELETE FROM clientes WHERE id= ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("i", $id);
 
-        return $stmt->execute();
+            return $stmt->execute();
         }
         
     }

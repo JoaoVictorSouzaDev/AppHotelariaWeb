@@ -12,7 +12,8 @@
         }
 
     } else if ($_SERVER['REQUEST_METHOD'] === "DELETE") {
-        $id = $segments[2] ?? null;
+        $data = json_decode(file_get_contents('php://input'), true);
+        $id = $data['id'];
 
         if (isset($id)) {
             RoomController::delete($conn, $id);
