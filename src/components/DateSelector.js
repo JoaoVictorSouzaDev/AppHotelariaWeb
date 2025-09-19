@@ -4,17 +4,39 @@ export default function DateSelector() {
     divDateSelector.className = 'divDateSelector';
 
     const dateCheckIn = document.createElement('input');
-    dateCheckIn.type = 'date'
-    dateCheckIn.className = 'card p-4 shadow-lg inputDate';
+    dateCheckIn.type = 'text'
+    dateCheckIn.placeholder = 'Data Check-In'
+    dateCheckIn.className = 'card p-3 shadow-lg inputDate';
     divDateSelector.appendChild(dateCheckIn);
 
+    dateCheckIn.addEventListener('focus', function() {
+    this.type = 'date';
+    });
+
+    dateCheckIn.addEventListener('blur', function() {
+    if (!this.value) {
+        this.type = 'text';
+    }
+    });
+
     const dateCheckOut = document.createElement('input');
-    dateCheckOut.type = 'date'
-    dateCheckOut.className = 'card p-4 shadow-lg inputDate';
+    dateCheckOut.type = 'text'
+    dateCheckOut.placeholder = 'Data Check-Out'
+    dateCheckOut.className = 'card p-3 shadow-lg inputDate';
     divDateSelector.appendChild(dateCheckOut);
 
+    dateCheckOut.addEventListener('focus', function() {
+    this.type = 'date';
+    });
+
+    dateCheckOut.addEventListener('blur', function() {
+    if (!this.value) {
+        this.type = 'text';
+    }
+    });
+
     const guestsAmount = document.createElement('select');
-    guestsAmount.className = 'card p-4 shadow-lg inputDate';
+    guestsAmount.className = 'card p-3 shadow-lg inputGuests';
     guestsAmount.innerHTML = `
     <option value="">Quantas Pessoas?</option>
     <option value="1">1 pessoa</option>
@@ -26,7 +48,7 @@ export default function DateSelector() {
 
     const btnSearch = document.createElement('button');
     btnSearch.type = 'submit';
-    btnSearch.textContent = "Search";
+    btnSearch.textContent = "Pesquisar";
     btnSearch.className = 'btn btn-primary buttonSearch';
     divDateSelector.appendChild(btnSearch);
 

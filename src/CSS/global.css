@@ -101,17 +101,23 @@ a {
     align-items: center;
     gap: 15px;
     margin-top: 50px;
-    height: 70px;
+    height: 50px;
 }
 
 .inputDate {
     width: 250px;
-    height: 70px;
+    height: 60px;
     margin-bottom: 0;
+    font-size: 16px;
+}
+
+.inputGuests{
+    height: 60px;
+    font-size: 16px;
 }
 
 .buttonSearch {
     width: 140px;
-    height: 70px;
+    height: 60px;
     font-size: 16px;
 }
