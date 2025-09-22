@@ -57,6 +57,7 @@ a {
 #root {
     flex-direction: column;
     margin-bottom: 5%;
+    align-items: center;
 }
 
 .navbarTop {
@@ -120,4 +121,21 @@ a {
     width: 140px;
     height: 60px;
     font-size: 16px;
+}
+
+.border-right {
+  border-right: 1px solid #000;
+}
+
+.table-color{
+    background-color: #4b0505;
+    color: #ccc;
+}
+
+.grid {
+    width: 70%;
+}
+
+.total {
+    font-weight: 700;
 }

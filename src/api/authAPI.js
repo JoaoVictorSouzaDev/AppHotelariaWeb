@@ -8,10 +8,8 @@
                 "Accept" : "application/json",
                 "Content-Type": "application/json"
             },
-
-        body : JSON.stringify(dados),
-
-        credentials: "same-origin"
+            body : JSON.stringify(dados),
+            credentials: "same-origin"
         });
 
         //Interpreta a resposta como JSON

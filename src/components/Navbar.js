@@ -40,7 +40,7 @@ export default function Navbar() {
             </ul>
 
             <a class="nav-link" href="car">
-                <i class="bi bi-cart fs-2 me-4"></i>
+                <i class="bi bi-cart fs-3 me-4"></i>
             </a>
 
             </div>
