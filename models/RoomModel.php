@@ -56,6 +56,41 @@ class RoomModel
         return $stmt->execute();
     }
 
+    public static function searchAvailable($conn, $inicio, $fim, $qtdPessoas) {
+     $sql = 
+     "
+    SELECT
+        q.id,
+        q.nome,
+        q.qtd_cama_casal,
+        q.qtd_cama_solteiro,
+        q.preco,
+        q.disponivel
+    FROM
+        quartos q
+    WHERE
+        q.id NOT IN (
+            SELECT
+            r.fk_quartos
+            FROM
+            reservas r
+            WHERE
+            (r.fim > ? AND r.inicio < ?)
+        )
+    AND q.disponivel = true
+    AND ( (q.qtd_cama_casal * 2) + q.qtd_cama_solteiro ) >= ?;
+     ";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param(
+        "ssi",
+        $fim,
+        $inicio,
+        $qtdPessoas
+    );
+    $stmt->execute();
+
+    return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
 }
 
 ?>

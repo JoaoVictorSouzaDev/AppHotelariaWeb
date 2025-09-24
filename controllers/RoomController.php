@@ -33,14 +33,18 @@ class RoomController {
         }
     }
 
-    public static function update($conn, $id, $data)
-    {
+    public static function update($conn, $id, $data) {
         $result = RoomModel::update($conn, $id, $data);
         if ($result) {
             return jsonResponse(['message' => 'Quarto atualizado com sucesso']);
         } else {
             return jsonResponse(['message' => 'Eroo'], 400);
         }
+    }
+
+    public static function getByAvaible($conn, $inicio, $fim, $qtdPessoas) {
+        $roomListAvaible = RoomModel::searchAvailable($conn, $inicio, $fim, $qtdPessoas);
+        return jsonResponse($roomListAvaible);
     }
 }
 ?>

@@ -24,10 +24,17 @@
     } else if ($_SERVER['REQUEST_METHOD'] === "POST") {
         $data = json_decode(file_get_contents('php://input'), true);
 
-        if (isset($data)) {
+        if (isset($data['inicio']) && isset($data['fim'])) {
+            $inicio = $data['inicio'];
+            $fim = $data['fim'];
+            $qtdPessoas = $data['qtdPessoas'];
+
+            RoomController::getByAvaible($conn, $inicio, $fim, $qtdPessoas);
+        } else if (isset($data['nome_quarto'])) {
             RoomController::create($conn, $data);
+
         } else {
-            jsonResponse(["message"=>"Atributos Invalidos!"], 400);
+            jsonResponse(["message" => "Atributos de requisição inválidos ou incompletos."], 400);
         }
 
     } else if ($_SERVER['REQUEST_METHOD'] === "PUT") {
@@ -40,7 +47,8 @@
             jsonResponse(["message"=>"Atributos Invalidos!"], 400);
         }
     
-    } else {
+    }
+     else {
         jsonResponse([
         "status"=>"erro",
         "message"=>"Metodo não permitido"
