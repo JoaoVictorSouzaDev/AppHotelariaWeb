@@ -83,8 +83,8 @@ class RoomModel
     $stmt = $conn->prepare($sql);
     $stmt->bind_param(
         "ssi",
-        $fim,
         $inicio,
+        $fim,
         $qtdPessoas
     );
     $stmt->execute();

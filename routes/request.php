@@ -17,7 +17,12 @@
         $data = json_decode(file_get_contents('php://input'), true);
 
         if (isset($data)) {
-            RequestController::create($conn, $data);
+             $validationResult = ValidateController::validate('Requests', $data);
+            if ($validationResult['sucesso']) {
+                RequestController::create($conn, $data);
+            } else {
+                jsonResponse($validationResult, 400);
+            }
         } else {
             jsonResponse(["message"=>"Atributos Invalidos!"], 400);
         }

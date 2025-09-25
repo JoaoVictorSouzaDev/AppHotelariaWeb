@@ -2,6 +2,7 @@
 require_once __DIR__ . "/../models/RequestModel.php";
 
 class RequestController {
+
     public static function create($conn, $data) {
         $result = RequestModel::create($conn, $data);
         if ($result) {

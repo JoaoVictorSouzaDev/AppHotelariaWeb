@@ -1,9 +1,15 @@
 <?php
 require_once __DIR__ . "/../models/RoomModel.php";
+require_once "DataController.php";
 
 class RoomController {
-    public static function create($conn, $data)
-    {
+
+    public static $labels = ['nome', 'numero', 'qtd_cama_casal', 'qtd_cama_solteiro', 'preco'];
+
+    public static function create($conn, $data) {
+        //criação
+        DataController::issetData($labels, $data);
+
         $result = RoomModel::create($conn, $data);
         if ($result) {
             return jsonResponse(['message' => 'Quarto criado com sucesso']);
