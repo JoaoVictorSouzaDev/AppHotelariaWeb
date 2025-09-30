@@ -75,7 +75,7 @@ class RoomModel
             FROM
             reservas r
             WHERE
-            (r.fim > ? AND r.inicio < ?)
+            (r.inicio < ? AND r.fim > ?)
         )
     AND q.disponivel = true
     AND ( (q.qtd_cama_casal * 2) + q.qtd_cama_solteiro ) >= ?;
@@ -83,8 +83,8 @@ class RoomModel
     $stmt = $conn->prepare($sql);
     $stmt->bind_param(
         "ssi",
-        $inicio,
         $fim,
+        $inicio,
         $qtdPessoas
     );
     $stmt->execute();

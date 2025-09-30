@@ -60,23 +60,22 @@
         }
 
         public static function ClientValidation($conn, $email, $password) {
-        $sql = "SELECT clientes.id, clientes.email, clientes.senha, clientes.nome FROM clientes WHERE clientes.email = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $email);
-        $stmt->execute();
-        $result = $stmt->get_result();
- 
-        if($client = $result->fetch_assoc()) {
-        
-            if(PasswordController::validateHash($password, $client['senha'])) {
-                unset($client['senha']);
-                return $client;  
-            }
+            $sql = "SELECT clientes.id, clientes.email, clientes.senha, clientes.nome FROM clientes WHERE clientes.email = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("s", $email);
+            $stmt->execute();
+            $result = $stmt->get_result();
+    
+            if($client = $result->fetch_assoc()) {
+            
+                if(PasswordController::validateHash($password, $client['senha'])) {
+                    unset($client['senha']);
+                    return $client;  
+                }
 
-        return false;
+            return false;
+            }
         }
-    }
-        
     }
 
 ?>

@@ -5,7 +5,7 @@
         $data = json_decode(file_get_contents('php://input'), true);
         ClientController::loginClient($conn, $data);
     } else {
-        jsonResponse([
+        jsonResponse([''
         "status"=>"erro",
         "message"=>"Metodo não permitido"
         ], 405);

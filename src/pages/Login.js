@@ -25,7 +25,6 @@ export default function renderLoginPage() {
     //Inputs e botão submit
     const inputEmail = contentForm.querySelector('input[type="email"]');
     const inputSenha = contentForm.querySelector('input[type="password"]');
-    const btn = contentForm.querySelector('button[type="submit;"]');
 
     //Monitora o clique no botão
     contentForm.addEventListener("submit", async (e) => {
@@ -42,6 +41,9 @@ export default function renderLoginPage() {
             console.log("Erro");
         } 
     });
+
+    const footer = document.getElementById('footer');
+    footer.innerHTML = '';
 
     const footers = Footer();
     footer.appendChild(footers);
