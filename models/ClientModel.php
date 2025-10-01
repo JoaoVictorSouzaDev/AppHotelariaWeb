@@ -19,16 +19,15 @@
         }
 
         public static function create($conn, $data) {
-            $sql = "INSERT INTO  clientes (nome, cpf, telefone, email, senha, fk_funcoes) VALUES (?, ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO  clientes (nome, cpf, telefone, email, senha) VALUES (?, ?, ?, ?, ?)";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param(
-                "sssssi",
+                "sssss",
                 $data["nome"],
                 $data["cpf"],
                 $data["telefone"],
                 $data["email"],
-                $data["senha"],
-                $data["fk_funcoes"]
+                $data["senha"]
             );
 
             return $stmt->execute();
@@ -59,8 +58,9 @@
             return $stmt->execute();
         }
 
-        public static function ClientValidation($conn, $email, $password) {
-            $sql = "SELECT clientes.id, clientes.email, clientes.senha, clientes.nome FROM clientes WHERE clientes.email = ?";
+        public static function validateClient($conn, $email, $password) {
+            $sql = "SELECT clientes.id, clientes.email, clientes.senha, clientes.nome, clientes.nome
+            FROM clientes JOIN funcoes ON clientes.fk_funcoes = funcoes.id WHERE clientes.email = ?";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("s", $email);
             $stmt->execute();

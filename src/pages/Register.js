@@ -17,6 +17,7 @@ export default function renderRegisterPage() {
 
     const btnRegister = formulario.querySelector('button');
     btnRegister.textContent = 'Cadastrar';
+    btnRegister.type = 'submit';
 
     const contentForm = formulario.querySelector('form');
 
@@ -33,15 +34,20 @@ export default function renderRegisterPage() {
     conSenha.placeholder = "Confirme sua senha";
     contentForm.insertBefore(conSenha, contentForm.children[3]);
 
+    const spanErroSenha = document.createElement('span');
+
     const inputCpf = document.createElement('input');
     inputCpf.type = 'text';
     inputCpf.placeholder = "Digite seu CPF";
-    contentForm.insertBefore(inputCpf, contentForm.children[4]);
+
+    contentForm.insertBefore(spanErroSenha, contentForm.children[4]);
+
+    contentForm.insertBefore(inputCpf, contentForm.children[5]);
 
     const inputTelefone = document.createElement('input');
     inputTelefone.type = 'text';
     inputTelefone.placeholder = "Digite seu Telefone";
-    contentForm.insertBefore(inputTelefone, contentForm.children[5]);
+    contentForm.insertBefore(inputTelefone, contentForm.children[6]);
 
     const inputSenha = contentForm.querySelector('input[type="password"]');
 
@@ -50,17 +56,31 @@ export default function renderRegisterPage() {
         const nome = inputNome.value.trim();
         const email = inputEmail.value.trim();
         const senha = inputSenha.value.trim();
+        const confirmaSenha = conSenha.value.trim();
         const cpf = inputCpf.value.trim();
         const telefone = inputTelefone.value.trim();
+
+        if(senha !== confirmaSenha) {
+            spanErroSenha.textContent = 'As senhas não conferem!'
+            spanErroSenha.style.color = 'red';
+            spanErroSenha.style.fontSize = '14px';
+            conSenha.style.borderBottom = '1px solid red';
+            return;
+        } 
+
+        spanErroSenha.textContent = '';
+        spanErroSenha.style.color = '';
+        conSenha.style.borderBottom = '';
 
         try {
             const result = await createClient(nome, cpf, telefone, email, senha);
             //Mano Jeff tem que resolver
-        } 
-        catch {
-            console.log("Erro");
+        } catch {
+            console.log("Erro Inesperado");
         } 
     });
+
+    console.log("Elemento Form sendo monitorado:", contentForm);
 
     const footer = document.getElementById('footer');
     footer.innerHTML = '';

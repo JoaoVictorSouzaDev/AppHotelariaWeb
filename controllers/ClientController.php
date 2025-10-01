@@ -2,13 +2,19 @@
 require_once __DIR__ . "/../models/ClientModel.php";
 require_once __DIR__ . "/../helpers/token_jwt.php";
 require_once "PasswordController.php";
+require_once "AuthController.php";
 
 class clientController {
      public static function create($conn, $data) {
+        $login = [
+            "email" => $data['email'],
+            "senha" => $data['senha'],
+        ];
+
         $data['senha'] = PasswordController::generateHash($data['senha']);
         $result = ClientModel::create($conn, $data);
         if ($result) {
-            return jsonResponse(['message' => 'Cliente criado com sucesso']);
+            AuthController::loginClient($conn, $login);
         } else {
             return jsonResponse(['message' => 'Erro inesperado'], 400);
         }
@@ -39,30 +45,6 @@ class clientController {
             return jsonResponse(['message' => 'Cliente atualizado com sucesso']);
         } else {
             return jsonResponse(['message' => 'Eroo'], 400);
-        }
-    }
-
-    public static function loginClient($conn, $data) {
-
-        $data['email'] = trim($data['email']);
-        $data['password'] = trim($data['password']);
- 
-        if (empty($data['email']) || empty($data['password'])) {
-            return jsonResponse([
-                "status" => "erro",
-                "message" => "Preencha todos os campos!"
-            ], 401);
-        }
- 
-        $client = ClientModel::ClientValidation($conn, $data['email'], $data['password']);
-        if ($client) {
-            $token = createToken($client);
-            return jsonResponse([ "token" => $token ]);
-        } else {
-            return jsonResponse([
-                "status" => "erro",
-                "message" => "Credenciais inválidas!"
-            ], 401);
         }
     }
 }

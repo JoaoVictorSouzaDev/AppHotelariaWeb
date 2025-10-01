@@ -1,25 +1,24 @@
 <?php
 
     require_once __DIR__ . "/../models/UserModel.php";
+    require_once __DIR__ . "/../models/ClientModel.php";
     require_once "PasswordController.php";
     require_once __DIR__ . "/../helpers/token_jwt.php";
 
     class AuthController{
-        public static function login($conn, $data){
+        public static function loginUser($conn, $data){
 
             $data['email'] = trim($data['email']);
-            $data['password'] = trim($data['password']);
+            $data['senha'] = trim($data['senha']);
 
-            //Verificar campos vazios
-            if (empty($data['email']) || empty($data['password'])) {
+            if (empty($data['email']) || empty($data['senha'])) {
                 return jsonResponse([
                     "status"=>"erro",
                     "message"=>"Preencha todos os campos!"
                 ], 401);
             }
 
-            //Valida a informação
-            $user = UserModel::validateUser($conn, $data['email'], $data['password']);
+            $user = UserModel::validateUser($conn, $data['email'], $data['senha']);
             if ($user) {
                 $token = createToken($user);
                 return jsonResponse(["token" => $token]);
@@ -30,6 +29,30 @@
                 ], 401);
             }
 
+        }
+
+        public static function loginClient($conn, $data) {
+
+            $data['email'] = trim($data['email']);
+            $data['senha'] = trim($data['senha']);
+    
+            if (empty($data['email']) || empty($data['senha'])) {
+                return jsonResponse([
+                    "status" => "erro",
+                    "message" => "Preencha todos os campos!"
+                ], 401);
+            }
+    
+            $client = ClientModel::validateClient($conn, $data['email'], $data['senha']);
+            if ($client) {
+                $token = createToken($client);
+                return jsonResponse([ "token" => $token ]);
+            } else {
+                return jsonResponse([
+                    "status" => "erro",
+                    "message" => "Credenciais inválidas!"
+                ], 401);
+            }
         }
     }
 
