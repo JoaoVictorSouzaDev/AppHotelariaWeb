@@ -1,17 +1,12 @@
 <?php
 require_once __DIR__ . "/../models/ReservationModel.php";
+require_once "DataController.php";
 
 class ReservationController {
      public static function create($conn, $data) {
 
-        $inicio = new DateTime($data['inicio']);
-        $fim = new DateTime($data['fim']);
-       
-        $inicio->setTime(14, 0, 0);
-        $fim->setTime(12, 0, 0);
-           
-        $data['inicio'] = $inicio->format('Y-m-d H:i:s');
-        $data['fim'] = $fim->format('Y-m-d H:i:s');
+        $data['inicio'] = DataController::fixDateHour($data['inicio'], 14)
+        $data['fim'] = DataController::fixDateHour($data['fim'], 12)
 
         $result = ReservationModel::create($conn, $data);
         if ($result) {

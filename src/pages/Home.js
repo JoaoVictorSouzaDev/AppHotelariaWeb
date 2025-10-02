@@ -1,4 +1,3 @@
-
 import Card from "../components/RoomCard.js";
 import Hero from "../components/Hero.js";
 import Navbar from "../components/Navbar.js";

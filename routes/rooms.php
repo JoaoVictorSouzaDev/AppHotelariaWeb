@@ -30,7 +30,6 @@
             $qtdPessoas = $data['qtdPessoas'];
 
             RoomController::getByAvaible($conn, $inicio, $fim, $qtdPessoas);
-
         } else if (isset($data['nome'])) {
             RoomController::create($conn, $data);
 
