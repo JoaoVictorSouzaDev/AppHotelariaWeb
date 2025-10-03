@@ -99,20 +99,21 @@ a {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: center;
+    /* Gap qtdPessoas errado */
     gap: 15px;
     margin-top: 50px;
-    height: 50px;
+    height: 90px;
 }
 
-.inputDate {
+.js-check-in-input,
+.js-check-out-input {
     width: 250px;
     height: 60px;
     margin-bottom: 0;
     font-size: 16px;
 }
 
-.inputGuests{
+.js-guests-amount{
     height: 60px;
     font-size: 16px;
 }
@@ -138,4 +139,11 @@ a {
 
 .total {
     font-weight: 700;
+}
+
+.divCheckInWithMsgError {
+    display: flex;
+    flex-direction: column;
+    gap: 1%;
+
 }

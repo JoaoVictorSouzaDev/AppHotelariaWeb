@@ -5,8 +5,8 @@ require_once "DataController.php";
 class ReservationController {
      public static function create($conn, $data) {
 
-        $data['inicio'] = DataController::fixDateHour($data['inicio'], 14)
-        $data['fim'] = DataController::fixDateHour($data['fim'], 12)
+        $data['inicio'] = ValidateController::fixDateHour($data['inicio'], 14);
+        $data['fim'] = ValidateController::fixDateHour($data['fim'], 12);
 
         $result = ReservationModel::create($conn, $data);
         if ($result) {
