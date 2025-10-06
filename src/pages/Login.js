@@ -33,13 +33,25 @@ export default function renderLoginPage() {
         const senha = inputSenha.value.trim();
 
         try {
-            const result = await loginRequest(email, senha);
-            saveToken(result.token);
-            //window.location.pathname = "AppHotelariaWeb/home";
-        } 
-        catch {
-            console.log("Erro");
-        } 
+                const result = await loginRequest(email, senha);
+
+                console.log("RESPOSTA COMPLETA DO SERVIDOR:", result); 
+                
+                saveToken(result.token); 
+
+                const userType = result.tipoUsuario; 
+                
+                if (userType === 'client') {
+                    console.log("cliente logado");
+                } else if (userType === 'user') {
+                    console.log("usuario logado");
+                } else {
+                    console.error("Tipo de usuário inválido retornado pelo servidor.");
+                }
+                
+            } catch (error) {
+                console.error("Falha no login:", error.message || "Erro desconhecido.");
+            } 
     });
 
     const footer = document.getElementById('footer');

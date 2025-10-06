@@ -2,7 +2,7 @@
     export async function loginRequest(email, senha) {
 
         const dados = {email, senha};
-        const response = await fetch("api/login/client", {
+        const response = await fetch("api/login", {
             method: "POST",
             headers: {
                 "Accept" : "application/json",
@@ -11,6 +11,8 @@
             body : JSON.stringify(dados),
             credentials: "same-origin"
         });
+
+        //aqui falta coisa
 
         let data = null;
         try {

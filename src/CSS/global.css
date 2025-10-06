@@ -99,7 +99,6 @@ a {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    /* Gap qtdPessoas errado */
     gap: 15px;
     margin-top: 50px;
     height: 90px;
@@ -145,5 +144,15 @@ a {
     display: flex;
     flex-direction: column;
     gap: 1%;
+}
 
+.error-message {
+    color: #cc0000; 
+    font-size: 12px; 
+    display: block;
+    margin-top: 5px;
+}
+
+.input-error {
+    border-bottom: 1px solid #cc0000 !important;
 }

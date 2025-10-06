@@ -37,44 +37,74 @@ export default function renderHeroPage() {
     divRoot.appendChild(subTituloCard);
 
     const btnSearch= dateSelector.querySelector('.js-search-button');
-    const CheckIn = dateSelector.querySelector('.js-check-in-input');
-    const CheckOut = dateSelector.querySelector('.js-check-out-input');
-    const guestsAmount = dateSelector.querySelector('.js-guests-amount');
-    const erroCheckIn = dateSelector.querySelector('js-erro-checkin');
-    const erroCheckOut = dateSelector.querySelector('js-erro-checkout');
-    const erroGuestsAmount = dateSelector.querySelector('js-erro-guests-amount');
 
-    // Botão Date Selector
-        btnSearch.addEventListener("click", async (e) => {
-            e.preventDefault();
+    function toggleErrorState(errorElement, inputElement, message = null) {
+        if (message) {
+            errorElement.textContent = message;
+            errorElement.classList.add('error-message');
+            inputElement.classList.add('input-error');
+        } else {
+            errorElement.textContent = '';
+            errorElement.classList.remove('error-message');
+            inputElement.classList.remove('input-error');
+        }
+    }
 
-            const inicio = CheckIn.value;
-            const fim = CheckOut.value;
-            const qtdPessoas = parseInt(guestsAmount.value, 10);
+    btnSearch.addEventListener("click", async (e) => {
+        e.preventDefault();
 
-            if (!inicio || !fim || !qtdPessoas || isNaN(qtdPessoas)) {
-                console.log("Preencha os parametros:");
-                return; 
-            }
+        const CheckIn = dateSelector.querySelector('.js-check-in-input');
+        const CheckOut = dateSelector.querySelector('.js-check-out-input');
+        const guestsAmount = dateSelector.querySelector('.js-guests-amount');
+        const erroCheckIn = dateSelector.querySelector('.js-erro-checkin');
+        const erroCheckOut = dateSelector.querySelector('.js-erro-checkout');
+        const erroGuestsAmount = dateSelector.querySelector('.js-erro-guests-amount');
 
-            btnSearch.disabled = true;
-            btnSearch.textContent = 'Buscando...';
+        const inicio = CheckIn.value.trim();
+        const fim = CheckOut.value.trim();
+        const qtdPessoas = parseInt(guestsAmount.value, 10);
 
-            const result = await listAvaibleRoomsRequest(inicio, fim, qtdPessoas);
+        let hasValidationErrors = false;
 
-            btnSearch.disabled = false;
-            btnSearch.style.backgroundColor = '';
-            btnSearch.textContent = 'Pesquisar';
+        toggleErrorState(erroCheckIn, CheckIn);
+        toggleErrorState(erroCheckOut, CheckOut);
+        toggleErrorState(erroGuestsAmount, guestsAmount);
 
-            if (result.ok) {
-                console.log("Quartos Disponíveis Encontrados:", result.data);
-                
-                //Renderizar quartos
+        if (!inicio) {
+            toggleErrorState(erroCheckIn, CheckIn, 'Data de Check-in é obrigatória.');
+            hasValidationErrors = true;
+        } 
+        
+        if (!fim) {
+            toggleErrorState(erroCheckOut, CheckOut, 'Data de Check-Out é obrigatória.');
+            hasValidationErrors = true;
+        } 
 
-            } else {
-                console.error("Erro na busca de quartos:", result.message);
-            }
-        });
+        if (!guestsAmount.value.trim() || isNaN(qtdPessoas) || qtdPessoas <= 0) {
+            toggleErrorState(erroGuestsAmount, guestsAmount, 'Quantidade de pessoas ');
+            hasValidationErrors = true;
+        }
+        
+        if (hasValidationErrors) {
+            return; 
+        }
+
+        btnSearch.disabled = true;
+        btnSearch.textContent = 'Buscando...';
+
+        const result = await listAvaibleRoomsRequest(inicio, fim, qtdPessoas);
+
+        btnSearch.disabled = false;
+        btnSearch.style.backgroundColor = ''; 
+        btnSearch.textContent = 'Pesquisar';
+
+        if (result.ok) {
+            console.log("Quartos Disponíveis Encontrados:", result.data);
+            // Renderizar quartos
+        } else {
+            console.error("Erro na busca de quartos:", result.message);
+        }
+    });
 
     const cardDiv = document.createElement('div');
     cardDiv.className = 'cardDiv';

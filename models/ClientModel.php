@@ -59,7 +59,7 @@
         }
 
         public static function validateClient($conn, $email, $password) {
-            $sql = "SELECT clientes.id, clientes.email, clientes.senha, clientes.nome, clientes.nome
+            $sql = "SELECT clientes.id, clientes.email, clientes.senha, clientes.nome
             FROM clientes JOIN funcoes ON clientes.fk_funcoes = funcoes.id WHERE clientes.email = ?";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("s", $email);

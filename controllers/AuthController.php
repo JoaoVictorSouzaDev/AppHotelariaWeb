@@ -12,47 +12,35 @@
             $data['senha'] = trim($data['senha']);
 
             if (empty($data['email']) || empty($data['senha'])) {
-                return jsonResponse([
-                    "status"=>"erro",
-                    "message"=>"Preencha todos os campos!"
-                ], 401);
+                return null;
             }
 
             $user = UserModel::validateUser($conn, $data['email'], $data['senha']);
             if ($user) {
-                $token = createToken($user);
-                return jsonResponse(["token" => $token]);
-            } else {
-                return jsonResponse([
-                    "status"=>"erro",
-                    "message"=>"Credenciais invalidas"
-                ], 401);
+                $user->role = 'user'; 
+                return $user; 
             }
 
+            return null;
         }
 
         public static function loginClient($conn, $data) {
 
             $data['email'] = trim($data['email']);
             $data['senha'] = trim($data['senha']);
+            $data['email'] = strtolower($data['email']);
     
             if (empty($data['email']) || empty($data['senha'])) {
-                return jsonResponse([
-                    "status" => "erro",
-                    "message" => "Preencha todos os campos!"
-                ], 401);
+                return null; 
             }
     
             $client = ClientModel::validateClient($conn, $data['email'], $data['senha']);
             if ($client) {
-                $token = createToken($client);
-                return jsonResponse([ "token" => $token ]);
-            } else {
-                return jsonResponse([
-                    "status" => "erro",
-                    "message" => "Credenciais inválidas!"
-                ], 401);
-            }
+                $client->role = 'client'; 
+                return $client; 
+            } 
+
+            return null;
         }
     }
 

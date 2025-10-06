@@ -28,18 +28,22 @@ export default function DateSelector() {
     }
     });
 
-
     divDateSelector.appendChild(divCheckInWithMsgError);
+
     //Check-Out
+
+    const divCheckOutWithMsgError = document.createElement('div');
+    divCheckOutWithMsgError.className = 'divCheckInWithMsgError';
+
     const dateCheckOut = document.createElement('input');
     dateCheckOut.type = 'text'
     dateCheckOut.placeholder = 'Check-Out'
     dateCheckOut.className = 'card p-3 shadow-lg js-check-out-input';
-    divDateSelector.appendChild(dateCheckOut);
+    divCheckOutWithMsgError.appendChild(dateCheckOut);
 
     const erroCheckOut = document.createElement('span');
     erroCheckOut.className = 'js-erro-checkout'
-    divDateSelector.appendChild(erroCheckOut);
+    divCheckOutWithMsgError.appendChild(erroCheckOut);
 
     dateCheckOut.addEventListener('focus', function() {
     this.type = 'date';
@@ -51,7 +55,12 @@ export default function DateSelector() {
     }
     });
 
+    divDateSelector.appendChild(divCheckOutWithMsgError);
+
     //Guests Amount
+    const divGuestsAmountWithMsgError = document.createElement('div');
+    divGuestsAmountWithMsgError.className = 'divCheckInWithMsgError';
+
     const guestsAmount = document.createElement('select');
     guestsAmount.className = 'card p-3 shadow-lg inputGuests js-guests-amount';
     guestsAmount.innerHTML = `
@@ -61,11 +70,13 @@ export default function DateSelector() {
     <option value="3">3 pessoas</option>
     <option value="4">4 pessoas</option>
     <option value="5">5 ou mais pessoas</option>`;
-    divDateSelector.appendChild(guestsAmount);
+    divGuestsAmountWithMsgError.appendChild(guestsAmount);
 
     const erroGuestsAmount = document.createElement('span');
     erroGuestsAmount.className = 'js-erro-guests-amount'
-    divDateSelector.appendChild(erroGuestsAmount);
+    divGuestsAmountWithMsgError.appendChild(erroGuestsAmount);
+
+    divDateSelector.appendChild(divGuestsAmountWithMsgError);
 
     //Botão Pesquisar
     const btnSearch = document.createElement('button');
