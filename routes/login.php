@@ -9,14 +9,14 @@
 
         if ($client) {
             $token = createToken($client); 
-            return jsonResponse(["token" => $token, "tipoUsuario" => $client['role'] = 'client'], 200);
+            return jsonResponse(["token" => $token, "tipoUsuario" => $client['role']], 200);
 
         } else {
             $usuario = AuthController::loginUser($conn, $data);
 
             if ($usuario) {
                 $token = createToken($usuario);
-                return jsonResponse(["token" => $token, "tipoUsuario" => $user['role'] = 'user'], 200);
+                return jsonResponse(["token" => $token, "tipoUsuario" => $usuario['role']], 200);
 
             } else {
                 return jsonResponse([

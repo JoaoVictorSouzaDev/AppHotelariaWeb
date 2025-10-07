@@ -49,7 +49,7 @@ class RoomController {
 
     public static function getByAvaible($conn, $inicio, $fim, $qtdPessoas) {
         $roomListAvaible = RoomModel::searchAvailable($conn, $inicio, $fim, $qtdPessoas);
-        return jsonResponse($roomListAvaible);
+        return jsonResponse(['quartos' => $roomListAvaible]);
     }
 }
 ?>

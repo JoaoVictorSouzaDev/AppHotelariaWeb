@@ -29,7 +29,9 @@
             $fim = $data['fim'];
             $qtdPessoas = $data['qtdPessoas'];
 
-            RoomController::getByAvaible($conn, $inicio, $fim, $qtdPessoas);
+            $resultados = RoomController::getByAvaible($conn, $inicio, $fim, $qtdPessoas);
+            jsonResponse(["mesage" => "quartos disponiveis",
+            "data" => $resultados]);
         } else if (isset($data['nome'])) {
             RoomController::create($conn, $data);
 

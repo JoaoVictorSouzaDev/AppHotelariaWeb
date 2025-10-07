@@ -1,17 +1,47 @@
-
-export default function RoomCard() {
+export default function RoomCard(itemCard, i = 0) {
+    const {
+        nome,
+        numero,
+        qtd_cama_casal,
+        qtd_cama_solteiro,
+        preco
+    } = itemCard || {};
+    
+    const title = nome || `Quarto #${numero || 'Indefinido'}`;
+    
+    const camas = [
+        (qtd_cama_casal > 0 ? `${qtd_cama_casal} cama(s) de casal` : null),
+        (qtd_cama_solteiro > 0 ? `${qtd_cama_solteiro} cama(s) de solteiro` : null),
+    ].filter(Boolean).join(' - ');
+    
+    const precoQuarto = new Intl.NumberFormat('pt-BR', {
+        style: 'currency',
+        currency: 'BRL'
+    }).format(preco || 0); 
 
     const containerCard = document.createElement('div');
-    containerCard.className = 'containerCard';
+    containerCard.className = 'col-md-4 mb-4'; 
+
     containerCard.innerHTML =
     `
-    <div class="card" style="width: 18rem;">
-        <img src="public/assets/images/FotoCard1.jpeg" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+    <div class="card h-100 shadow-sm border-0">
+        <img src="public/assets/images/FotoCard1.jpeg" class="card-img-top" alt="Imagem do Quarto ${title}">
+        <div class="card-body d-flex flex-column">
+            
+            <!-- Título (Nome do Quarto) e Número -->
+            <h5 class="card-title text-primary">${title} (Nº ${numero})</h5>
+            
+            <!-- Detalhes das Camas -->
+            <p class="card-text text-muted flex-grow-1">
+                ${camas || 'Detalhes das camas não especificados.'}
+            </p>
+            
+            <!-- Preço e Botão de Ação -->
+            <div class="d-flex justify-content-between align-items-center mt-auto pt-3 border-top">
+                <span class="h4 text-success">${precoQuarto} / Noite</span>
+                <a href="#" class="btn btn-primary">Reservar</a>
             </div>
+        </div>
     </div>
     `;
 

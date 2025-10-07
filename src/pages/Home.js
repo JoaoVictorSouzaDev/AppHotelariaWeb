@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar.js";
 import Footer from "../components/Footer.js";
 import DateSelector from "../components/DateSelector.js";
 import {listAvaibleRoomsRequest} from "../api/roomsAPI.js";
+import RoomCard from "../components/RoomCard.js";
 
 export default function renderHeroPage() {
     const nav = document.getElementById('navbar');
@@ -50,6 +51,11 @@ export default function renderHeroPage() {
         }
     }
 
+    const cardDiv = document.createElement('div');
+    cardDiv.className = 'cardDiv';
+    cardDiv.id = 'cards-result';
+    divRoot.appendChild(cardDiv);
+
     btnSearch.addEventListener("click", async (e) => {
         e.preventDefault();
 
@@ -64,6 +70,9 @@ export default function renderHeroPage() {
         const fim = CheckOut.value.trim();
         const qtdPessoas = parseInt(guestsAmount.value, 10);
 
+        const dtInicio = new Date(inicio);
+        const dtFim = new Date(fim);
+
         let hasValidationErrors = false;
 
         toggleErrorState(erroCheckIn, CheckIn);
@@ -74,9 +83,14 @@ export default function renderHeroPage() {
             toggleErrorState(erroCheckIn, CheckIn, 'Data de Check-in é obrigatória.');
             hasValidationErrors = true;
         } 
+
+        if (dtInicio >= dtFim) {
+            toggleErrorState(erroCheckIn, CheckIn, 'Check-in deve ser anterior ao Check-Out.');
+            hasValidationErrors = true;
+        }
         
         if (!fim) {
-            toggleErrorState(erroCheckOut, CheckOut, 'Data de Check-Out é obrigatória.');
+            toggleErrorState(erroCheckOut, CheckOut, 'Check-Out é obrigatória.');
             hasValidationErrors = true;
         } 
 
@@ -99,22 +113,17 @@ export default function renderHeroPage() {
         btnSearch.textContent = 'Pesquisar';
 
         if (result.ok) {
-            console.log("Quartos Disponíveis Encontrados:", result.data);
-            // Renderizar quartos
+            cardDiv.innerHTML = '';
+            const quartosDisponiveis = Array.isArray(result.data) ? result.data : [];
+            quartosDisponiveis.forEach((itemCard, i) => {
+            cardDiv.appendChild(RoomCard(itemCard, i));
+        });
+
         } else {
             console.error("Erro na busca de quartos:", result.message);
         }
+
     });
-
-    const cardDiv = document.createElement('div');
-    cardDiv.className = 'cardDiv';
-
-    for (var i=0; i < 3; i++) {
-        const card = Card();
-        cardDiv.appendChild(card);
-    }
-
-    divRoot.appendChild(cardDiv);
 
     const foot = document.getElementById('footer');
     foot.innerHTML = '';

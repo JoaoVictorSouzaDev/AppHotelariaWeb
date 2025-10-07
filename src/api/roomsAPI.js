@@ -32,6 +32,8 @@ export async function listAvaibleRoomsRequest(inicio, fim, qtdPessoas) {
 
     return {
         ok: true,
-        data: data 
+        data: data,
+       
     };
+    
 }

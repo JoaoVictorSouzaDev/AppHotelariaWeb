@@ -34,19 +34,15 @@ export default function renderLoginPage() {
 
         try {
                 const result = await loginRequest(email, senha);
-
-                console.log("RESPOSTA COMPLETA DO SERVIDOR:", result); 
                 
                 saveToken(result.token); 
 
                 const userType = result.tipoUsuario; 
                 
-                if (userType === 'client') {
-                    console.log("cliente logado");
-                } else if (userType === 'usuario') {
-                    console.log("usuario logado");
+                if (userType === 'client' || userType === 'user') {
+                    //window.location.pathname = "/AppHotelariaWeb/home";
                 } else {
-                    console.error("Tipo de usuário inválido retornado pelo servidor.");
+                    console.error("Tipo de usuário inválido retornado pelo servidor. Valor:", userType);
                 }
                 
             } catch (error) {

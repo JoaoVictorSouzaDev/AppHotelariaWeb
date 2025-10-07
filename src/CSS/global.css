@@ -88,11 +88,11 @@ a {
 
 .cardDiv {
     display: flex;
-    width: 100%;
     justify-content: center;
+    flex-direction: wrap;
     align-items: center;
-    gap: 25px;
-    margin-top: 70px;
+    gap: 3%;
+    margin-top: 5%;
 }
 
 .divDateSelector {

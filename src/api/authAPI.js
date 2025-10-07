@@ -39,7 +39,8 @@
         return {
             ok: true,
             token: data.token,
-            raw: data
+            raw: data,
+            tipoUsuario: data.tipoUsuario
         }
     }
 
@@ -50,6 +51,7 @@
     export function getToken(token) {
         return localStorage.getItem("auth_token");
     }
+
 
     export function clearToken() {
         localStorage.removeItem("auth_token");
