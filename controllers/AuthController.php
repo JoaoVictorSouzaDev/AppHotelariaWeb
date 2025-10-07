@@ -17,7 +17,7 @@
 
             $user = UserModel::validateUser($conn, $data['email'], $data['senha']);
             if ($user) {
-                $user->role = 'user'; 
+                $user['role'] = 'user';
                 return $user; 
             }
 
@@ -28,7 +28,6 @@
 
             $data['email'] = trim($data['email']);
             $data['senha'] = trim($data['senha']);
-            $data['email'] = strtolower($data['email']);
     
             if (empty($data['email']) || empty($data['senha'])) {
                 return null; 
@@ -36,7 +35,7 @@
     
             $client = ClientModel::validateClient($conn, $data['email'], $data['senha']);
             if ($client) {
-                $client->role = 'client'; 
+                $client['role'] = 'client'; 
                 return $client; 
             } 
 

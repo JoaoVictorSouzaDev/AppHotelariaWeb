@@ -43,7 +43,7 @@ export default function renderLoginPage() {
                 
                 if (userType === 'client') {
                     console.log("cliente logado");
-                } else if (userType === 'user') {
+                } else if (userType === 'usuario') {
                     console.log("usuario logado");
                 } else {
                     console.error("Tipo de usuário inválido retornado pelo servidor.");
