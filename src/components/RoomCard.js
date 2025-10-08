@@ -7,7 +7,7 @@ export default function RoomCard(itemCard, i = 0) {
         preco
     } = itemCard || {};
     
-    const title = nome || `Quarto #${numero || 'Indefinido'}`;
+    const title = nome;
     
     const camas = [
         (qtd_cama_casal > 0 ? `${qtd_cama_casal} cama(s) de casal` : null),
@@ -29,7 +29,7 @@ export default function RoomCard(itemCard, i = 0) {
         <div class="card-body d-flex flex-column">
             
             <!-- Título (Nome do Quarto) e Número -->
-            <h5 class="card-title text-primary">${title} (Nº ${numero})</h5>
+            <h5 class="card-title text-primary">${title}</h5>
             
             <!-- Detalhes das Camas -->
             <p class="card-text text-muted flex-grow-1">

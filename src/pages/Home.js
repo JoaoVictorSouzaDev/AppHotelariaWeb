@@ -107,6 +107,7 @@ export default function renderHeroPage() {
         btnSearch.textContent = 'Buscando...';
 
         const result = await listAvaibleRoomsRequest(inicio, fim, qtdPessoas);
+        console.log(result.data);
 
         btnSearch.disabled = false;
         btnSearch.style.backgroundColor = ''; 
@@ -114,8 +115,8 @@ export default function renderHeroPage() {
 
         if (result.ok) {
             cardDiv.innerHTML = '';
-            const quartosDisponiveis = Array.isArray(result.data) ? result.data : [];
-            quartosDisponiveis.forEach((itemCard, i) => {
+            
+            result.data.forEach((itemCard, i) => {
             cardDiv.appendChild(RoomCard(itemCard, i));
         });
 

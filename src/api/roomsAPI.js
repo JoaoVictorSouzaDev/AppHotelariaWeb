@@ -15,7 +15,7 @@ export async function listAvaibleRoomsRequest(inicio, fim, qtdPessoas) {
     let data = null;
 
     try {
-        data = await response.json(); 
+        data = await response.json();
     } catch (error) {
         // Se a resposta não tiver corpo ou não for JSON (e o status for 2xx), 'data' será 'null'
         // Se a resposta tiver status 4xx/5xx sem JSON, 'data' será 'null' e será tratado abaixo
@@ -32,8 +32,7 @@ export async function listAvaibleRoomsRequest(inicio, fim, qtdPessoas) {
 
     return {
         ok: true,
-        data: data,
-       
+        data: Array.isArray(data?.quartos) ? data.quartos : []
     };
     
 }
