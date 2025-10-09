@@ -1,4 +1,5 @@
 <?php
+    require_once "RoomModel.php";
 
     class RequestModel {
 
@@ -12,7 +13,11 @@
             $data["fk_clientes"],
         );
 
-        return $stmt->execute();
+            $resultado = $stmt->execute();
+            if ($resultado) {
+                return $conn->insert_id;
+            }
+            return false;
         }
 
         public static function searchById($conn, $id) {
@@ -51,6 +56,43 @@
         return $stmt->execute();
         }
 
+        public static function createRequest() {
+            $usuarioId = $data['usuario_id'];
+            $clienteId = $data['cliente_id'];
+            $pagamento = $data['pagamento'];
+            $reservas = [];
+            $reservol = false;
+
+            $conn->begin_trasaction(MYSQLY_TRANS_START_READ_WRITE);
+            try {
+                $orderId = self::create($conn, [
+                    "usuarioId" => $usuarioId,
+                    "clienteId" => $clienteId,
+                    "usuarioId" => $pagamento
+                ]);
+
+                if (!$orderId) {
+                    throw new RunTimeException("Erro ao criar o pedido");
+                }
+
+                foreach($data['quartos'] as $quarto) {
+                    $id = $quarto['id'];
+                    $inicio = $quarto['inicio'];
+                    $fim = $quarto['fim'];
+
+                    if (!RoomModel::lockById($conn, $id)) {
+                        $reservas[] = "Quarto {$id} indisponivel!";
+                        continue;
+                    }
+                    
+                }
+
+            } catch (\Throwable $th) {
+                try {$conn->rollback();} 
+                catch (\Throwable $th2) {}
+                throw $th;
+            }
+        }
     }
 
 ?>

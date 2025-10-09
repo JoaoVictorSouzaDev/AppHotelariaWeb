@@ -2,8 +2,6 @@
 
     require_once __DIR__ . "/../controllers/RequestController.php";
 
-    //pronto
-
     if ($_SERVER['REQUEST_METHOD'] === "GET") {
         $id = $segments[2] ?? null;
 
@@ -14,17 +12,13 @@
         }
     
     } else if ($_SERVER['REQUEST_METHOD'] === "POST") {
+        $opcao = $segments[2] ?? null;
         $data = json_decode(file_get_contents('php://input'), true);
 
-        if (isset($data)) {
-             $validationResult = ValidateController::validate('Requests', $data);
-            if ($validationResult['sucesso']) {
-                RequestController::create($conn, $data);
-            } else {
-                jsonResponse($validationResult, 400);
-            }
+        if ($opcao == "reservation") {
+            RequestController::createRequest($conn, $data);
         } else {
-            jsonResponse(["message"=>"Atributos Invalidos!"], 400);
+            RequestController::create($conn, $data);
         }
 
     } else if ($_SERVER['REQUEST_METHOD'] === "DELETE") {

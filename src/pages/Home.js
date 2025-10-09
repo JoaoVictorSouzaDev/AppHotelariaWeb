@@ -115,7 +115,6 @@ export default function renderHeroPage() {
 
         if (result.ok) {
             cardDiv.innerHTML = '';
-            
             result.data.forEach((itemCard, i) => {
             cardDiv.appendChild(RoomCard(itemCard, i));
         });

@@ -3,7 +3,7 @@
 
 class ValidateController {
 
-    public static function issetData($labels, $data) {
+    public static function issetData($data, $labels) {
         $missinglabels = [];
 
         foreach ($labels as $missLabels) {
