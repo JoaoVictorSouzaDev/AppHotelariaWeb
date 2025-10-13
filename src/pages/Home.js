@@ -1,4 +1,4 @@
-import Card from "../components/RoomCard.js";
+import CardLounge from "../components/CardLounge.js"
 import Hero from "../components/Hero.js";
 import Navbar from "../components/Navbar.js";
 import Footer from "../components/Footer.js";
@@ -18,24 +18,55 @@ export default function renderHeroPage() {
 
     const hero = Hero();
     divRoot.appendChild(hero);
-    
-    const dateSelector = DateSelector()
-    divRoot.appendChild(dateSelector);
 
     const tituloCard = document.createElement('h1');
     tituloCard.textContent = 'Conheça nossos quartos'
     tituloCard.className = 'titulo';
-    tituloCard.style.fontSize = '24px';
+    tituloCard.style.fontSize = '28px';
     tituloCard.style.textAlign = 'center';
-    tituloCard.style.marginTop = '3%';
+    tituloCard.style.marginTop = '2%';
     divRoot.appendChild(tituloCard)
 
     const subTituloCard = document.createElement('h2');
-    subTituloCard.textContent = 'Conforto e elegância que se unem para criar a sua experiência de estadia perfeita.'
+    subTituloCard.textContent = 'Selecione o período da sua estadia e descubra os quartos perfeitos para você.'
     subTituloCard.className = 'subTitulo';
     subTituloCard.style.fontSize = '18px';
     subTituloCard.style.textAlign = 'center';
     divRoot.appendChild(subTituloCard);
+
+    const dateSelector = DateSelector()
+    divRoot.appendChild(dateSelector);
+
+    const cardDiv = document.createElement('div');
+    cardDiv.className = 'cardDiv';
+    cardDiv.id = 'cards-result';
+
+    divRoot.appendChild(cardDiv);
+
+    const tituloLounge = document.createElement('h1');
+    tituloLounge.textContent = 'Nossa infraestrutura'
+    tituloLounge.className = 'titulo';
+    tituloLounge.style.fontSize = '28px';
+    tituloLounge.style.textAlign = 'center';
+    tituloLounge.style.marginTop = '2%';
+    divRoot.appendChild(tituloLounge);
+
+    const cardLoungeDiv = document.createElement('div');
+    cardLoungeDiv.className = 'cardLoungeDiv';
+    cardLoungeDiv.style.marginTop = '2%';
+    divRoot.appendChild(cardLoungeDiv);
+
+
+
+    const loungeItems = [
+        {path: "FotoReustarante.jpeg", title: "Restaurante", text: "Nosso restaurante é um espaço agradavel e familiar!"},
+        {path: "FotoSpa.jpeg", title: "SPA", text: "Nosso SPA é ideal para momentos de relaxamento!"},
+        {path: "FotoBar.jpeg", title: "Bar", text: "Nosso bar oferece drinks sem metanol, confia!"}
+    ];
+    for (let i = 0; i < loungeItems.length; i++) {
+        const cardLoungeElement = CardLounge (loungeItems[i], i);
+        cardLoungeDiv.appendChild(cardLoungeElement);
+    }
 
     const btnSearch= dateSelector.querySelector('.js-search-button');
 
@@ -50,11 +81,6 @@ export default function renderHeroPage() {
             inputElement.classList.remove('input-error');
         }
     }
-
-    const cardDiv = document.createElement('div');
-    cardDiv.className = 'cardDiv';
-    cardDiv.id = 'cards-result';
-    divRoot.appendChild(cardDiv);
 
     btnSearch.addEventListener("click", async (e) => {
         e.preventDefault();

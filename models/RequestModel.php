@@ -84,7 +84,6 @@
                         $reservas[] = "Quarto {$id} indisponivel!";
                         continue;
                     }
-                    
                 }
 
             } catch (\Throwable $th) {

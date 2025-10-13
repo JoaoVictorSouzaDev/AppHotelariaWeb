@@ -56,7 +56,6 @@ a {
 
 #root {
     flex-direction: column;
-    margin-bottom: 5%;
     align-items: center;
 }
 
@@ -92,7 +91,6 @@ a {
     flex-wrap: wrap;
     align-items: center;
     gap: 3%;
-    margin-top: 5%;
 }
 
 .divDateSelector {
@@ -100,7 +98,7 @@ a {
     flex-direction: row;
     justify-content: center;
     gap: 15px;
-    margin-top: 50px;
+    margin-top: 1%;
     height: 90px;
 }
 
@@ -155,4 +153,10 @@ a {
 
 .input-error {
     border-bottom: 1px solid #cc0000 !important;
+}
+
+.cardLoungeDiv {
+    display: flex;
+    gap: 5%;
+    align-items: flex-start;
 }

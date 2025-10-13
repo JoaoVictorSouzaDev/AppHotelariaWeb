@@ -1,6 +1,16 @@
 
 export default function DateSelector() {
 
+    function getTodayDateISO() {
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0'); 
+        const day = String(today.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    }
+
+    const todayISO = getTodayDateISO();
+
     const divDateSelector = document.createElement('div');
     divDateSelector.className = 'divDateSelector';
 
@@ -10,8 +20,11 @@ export default function DateSelector() {
     //Check-In
     const dateCheckIn = document.createElement('input');
     dateCheckIn.type = 'text'
+    dateCheckIn.id = 'Check-In'
     dateCheckIn.placeholder = 'Check-In'
     dateCheckIn.className = 'card p-3 shadow-lg js-check-in-input';
+    dateCheckIn.min = todayISO; 
+
     divCheckInWithMsgError.appendChild(dateCheckIn);
 
     const erroCheckIn = document.createElement('span');
@@ -37,8 +50,11 @@ export default function DateSelector() {
 
     const dateCheckOut = document.createElement('input');
     dateCheckOut.type = 'text'
+    dateCheckOut.id = 'Check-Out'
     dateCheckOut.placeholder = 'Check-Out'
     dateCheckOut.className = 'card p-3 shadow-lg js-check-out-input';
+    dateCheckOut.min = todayISO;
+
     divCheckOutWithMsgError.appendChild(dateCheckOut);
 
     const erroCheckOut = document.createElement('span');
@@ -53,6 +69,16 @@ export default function DateSelector() {
     if (!this.value) {
         this.type = 'text';
     }
+    });
+
+    dateCheckIn.addEventListener('change', function() {
+        const checkInDate = new Date(this.value);
+        checkInDate.setDate(checkInDate.getDate() + 1);
+        const minCheckOut = `${checkInDate.getFullYear()}-${String(checkInDate.getMonth() + 1).padStart(2, '0')}-${String(checkInDate.getDate()).padStart(2, '0')}`;
+        dateCheckOut.min = minCheckOut;
+        if (dateCheckOut.value && dateCheckOut.value < minCheckOut) {
+            dateCheckOut.value = minCheckOut;
+        }
     });
 
     divDateSelector.appendChild(divCheckOutWithMsgError);

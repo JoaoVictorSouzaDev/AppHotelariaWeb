@@ -17,10 +17,21 @@ class ReservationController {
     }
 
     public static function listbyOrder($conn, $fk_pedidos) {
-    $reservation = ReservationModel::listByOrder($conn, $fk_pedidos);
-    return jsonResponse($reservation);
+        $reservation = ReservationModel::listByOrder($conn, $fk_pedidos);
+        return jsonResponse($reservation);
     }
 
+   public static function isReserved($conn, $fkQuarto, $inicio, $fim) {
+        $inicio = ValidateController::fixDateHour($inicio, 14);
+        $fim = ValidateController::fixDateHour($fim, 12);
+
+        $isReserved = ReservationModel::getAvaibleOrder($conn, $fkQuarto, $inicio, $fim);
+        if ($isReserved) {
+            return jsonResponse(['message' => 'Existe uma reserva para este quarto neste período.']);
+        } else {
+            return jsonResponse(['message' => 'Não Existe reserva. O quarto está disponível.']);
+        }
+    }
 }
 
 
