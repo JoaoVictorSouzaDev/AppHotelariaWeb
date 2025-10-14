@@ -80,8 +80,6 @@ export default function renderRegisterPage() {
         } 
     });
 
-    console.log("Elemento Form sendo monitorado:", contentForm);
-
     const footer = document.getElementById('footer');
     footer.innerHTML = '';
 

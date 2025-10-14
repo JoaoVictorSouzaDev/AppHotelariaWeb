@@ -15,9 +15,6 @@ export default function Navbar() {
                 <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="home">Home</a>
                 </li>
-                <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-                </li>
                 <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Dropdown
@@ -37,6 +34,11 @@ export default function Navbar() {
                 <li class="nav-itepsm">
                 <a class="nav-link" href="login">Login</a>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="room">Quartos</a>
+                </li>
+
             </ul>
 
             <a class="nav-link" href="car">

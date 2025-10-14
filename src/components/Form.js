@@ -24,11 +24,13 @@ export default function Form(){
     const email = document.createElement('input');
     email.type = 'email';
     email.placeholder = "Digite seu e-mail";
+    email.className = "InputEmail";
     formulario.appendChild(email);
 
     const senha = document.createElement('input');
     senha.type = 'password';
     senha.placeholder = "Digite sua senha";
+    senha.className = "InputSenha";
     formulario.appendChild(senha);
 
     const btn = document.createElement('button');
