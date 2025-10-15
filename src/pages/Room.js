@@ -93,9 +93,10 @@ export default function renderRoomPage() {
     const inputPreco = contentForm.querySelector('.InputPreco');
     const inputDisponivel = contentForm.querySelector('.form-select');
 
-    //Estilizar Input Arquivos
+    //Estilizar input arquivos
     //Criar API para inserir as imagens
-    //Validadores Front e Back
+    //Validadores Front
+    //Limitar quartos somente para Operadores
     contentForm.addEventListener("submit", async (e) => {
         e.preventDefault();
 

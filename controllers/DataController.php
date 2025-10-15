@@ -13,6 +13,7 @@ class ValidateController {
         }
             if (!empty($missinglabels)) {
                 return jsonResponse(['message' => 'Erro, falta o campo: ' . implode(', ', $missinglabels)]);
+                exit;
         }
     }
 

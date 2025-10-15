@@ -4,12 +4,11 @@ require_once "DataController.php";
 
 class RoomController {
 
-    //public static $labels = ['nome', 'numero', 'qtd_cama_casal', 'qtd_cama_solteiro', 'preco', 'disponivel'];
+    public static $labels = ['nome', 'numero', 'qtd_cama_casal', 'qtd_cama_solteiro', 'preco', 'disponivel'];
 
     public static function create($conn, $data) {
         
-        //Arrumar Validatores
-        //ValidateController::issetData($labels, $data);
+        ValidateController::issetData($data, self::$labels);
         $result = RoomModel::create($conn, $data);
         if ($result) {
             return jsonResponse(['message' => 'Quarto criado com sucesso']);

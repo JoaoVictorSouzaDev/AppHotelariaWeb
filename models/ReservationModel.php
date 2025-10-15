@@ -44,8 +44,9 @@
             $stmt->bind_param(
                 "iss",
                 $fkQuarto,
-                $fim,
-                $inicio
+                $inicio,
+                $fim
+
             );   
             $stmt->execute();
             $result = $stmt->get_result();

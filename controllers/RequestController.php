@@ -14,18 +14,26 @@ class RequestController {
     }
 
     public static function createRequest($conn, $data){
-        $data["usuario_id"] = isset($data['usuario_id']) ? $data['usuario_id'] : null;
+        $data["usuario_id"] = isset($data['usuario_id']) ? $data['usuario_id'] : 3;
+
         ValidateController::issetData($data,['cliente_id','pagamento','quartos']);      
     
         foreach($data['quartos'] as $index => $quartos){
-            ValidateController::issetData($quartos,['id', 'inicio', 'fim']);
+            ValidateController::issetData($quartos, ['id', 'inicio', 'fim']);
+            $quartos['inicio'] = ValidateController::fixDateHour($quartos['inicio'], 14);
+            $quartos['fim'] = ValidateController::fixDateHour($quartos['fim'], 12);
         }
         if (count($data['quartos']) == 0) {
             jsonResponse(['message' => 'Nenhum quartos existente na reserva!'], 400);
         }
 
-        //Transformar em data
-        //RequestModel::createRequest($conn, $data);
+        try {
+            $result = RequestModel::createRequest($conn, $data); //*
+            return jsonResponse(['message' => $result]);
+        } catch (\Throwable $erro) {
+            return jsonResponse(['message' => $erro->getMessage()], 500);
+        }
+
     }
 
     public static function getAll($conn) {

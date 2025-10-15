@@ -1,5 +1,6 @@
 <?php
     require_once "RoomModel.php";
+    require_once "ReservationModel.php";
 
     class RequestModel {
 
@@ -56,19 +57,20 @@
         return $stmt->execute();
         }
 
-        public static function createRequest() {
+        public static function createRequest($conn, $data) {
             $usuarioId = $data['usuario_id'];
             $clienteId = $data['cliente_id'];
             $pagamento = $data['pagamento'];
             $reservas = [];
-            $reservol = false;
+            $reservou = false;
 
-            $conn->begin_trasaction(MYSQLY_TRANS_START_READ_WRITE);
+            $conn->begin_transaction(MYSQLI_TRANS_START_READ_WRITE);
+
             try {
                 $orderId = self::create($conn, [
-                    "usuarioId" => $usuarioId,
-                    "clienteId" => $clienteId,
-                    "usuarioId" => $pagamento
+                    "fk_clientes" => $usuarioId,
+                    "fk_usuarios" => $clienteId,
+                    "pagamento" => $pagamento
                 ]);
 
                 if (!$orderId) {
@@ -81,9 +83,38 @@
                     $fim = $quarto['fim'];
 
                     if (!RoomModel::lockById($conn, $id)) {
-                        $reservas[] = "Quarto {$id} indisponivel!";
+                        $reservas[] = "Quarto {$id} está indisponivel!";
                         continue;
                     }
+
+                    if (ReservationModel::getAvaibleOrder($conn, $id, $inicio, $fim)) {
+                        $reservas[] = "Quarto {$id} está indisponivel.";
+                        continue;
+                    }
+
+                    $reserverResult = ReservationModel::create($conn,[
+                        "fk_pedidos" => $orderId,
+                        "fk_quartos" => $id,
+                        "fk_adicionais" => 2,
+                        "fim" => $fim,
+                        "inicio" => $inicio,
+                    ]);
+                    $reservou = true;
+                    $reservas[] = [
+                        "fk_reservas" => $conn->insert_id,
+                        "fk_quartos" => $id
+                    ];
+                }
+
+                if ($reservou == true) {
+                    $conn->commit();
+                    return [
+                        "fk_pedidos" => $orderId,
+                        "reservas" => $reservas,
+                        "messagem" => "Reservas criadas com sucesso!!"
+                    ];
+                } else {
+                    throw new RuntimeException("Pedido nao realizado, nenhum quarto reservado");
                 }
 
             } catch (\Throwable $th) {
