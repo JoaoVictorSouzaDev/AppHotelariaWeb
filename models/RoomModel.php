@@ -15,7 +15,13 @@ class RoomModel
             $data["preco"],
             $data["disponivel"]
         );
-        return $stmt->execute();
+        $resultado = $stmt->execute();
+
+        if ($resultado) {
+            return $conn->insert_id; 
+        }
+    
+    return false;
     }
 
 

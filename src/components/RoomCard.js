@@ -1,3 +1,15 @@
+function calcularDiaria(checkIn, checkOut) {
+    const checkIn = "2026-01-01";
+    const checkIn = "2026-01-08";
+
+    const [yin, min, din] = String(checkIn).split("-").map(Number);
+    const [yout, mout, dout] = String(checkOut).split("-").map(Number);
+
+    const tin = Date.UTC(yin, min -1, din);
+    const tout = Date.UTC(yout, mout -1, dout);
+
+}
+
 export default function RoomCard(itemCard, i = 0) {
     const {
         nome,
