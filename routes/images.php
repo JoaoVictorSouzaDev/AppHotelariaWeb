@@ -3,7 +3,8 @@
     require_once __DIR__ . "/../controllers/ImagesController.php";
 
     if ($_SERVER['REQUEST_METHOD'] === "POST") {
-        ImagesController::createRoomImagesHandler($conn);
+        $data = $_FILES['fotos'] ?? null;
+        ImagesController::upload($data);
     } else {
         jsonResponse([
         "status"=>"erro",

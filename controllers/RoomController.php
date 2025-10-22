@@ -1,16 +1,27 @@
 <?php
 require_once __DIR__ . "/../models/RoomModel.php";
+require_once __DIR__ . "/../models/ImageModel.php";
 require_once "DataController.php";
+require_once "ImagesController.php";
 
 class RoomController {
 
-    public static $labels = ['nome', 'numero', 'qtd_cama_casal', 'qtd_cama_solteiro', 'preco', 'disponivel'];
+    //public static $labels = ['nome', 'numero', 'qtd_cama_casal', 'qtd_cama_solteiro', 'preco', 'disponivel'];
 
     public static function create($conn, $data) {
+        //ValidateController::issetData($data, self::$labels);
         
-        ValidateController::issetData($data, self::$labels);
         $result = RoomModel::create($conn, $data);
         if ($result) {
+            if ($data['fotos']){
+                $pictures = ImagesController::upload($data['fotos']);
+                foreach($picture['saves'] as $name) {
+                    $idPhoto = ImageModel::create($conn, $name);
+                    if ($idPhoto) {
+                        ImageModel::createRelationRoom($conn, $result, $idPhoto);
+                    }
+                }
+            }
             return jsonResponse(['message' => 'Quarto criado com sucesso']);
         } else {
             return jsonResponse(['message' => 'Erro inesperado'], 400);

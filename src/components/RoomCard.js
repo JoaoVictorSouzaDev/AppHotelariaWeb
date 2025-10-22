@@ -1,3 +1,4 @@
+/* Arrumar
 function calcularDiaria(checkIn, checkOut) {
     const checkIn = "2026-01-01";
     const checkIn = "2026-01-08";
@@ -9,6 +10,7 @@ function calcularDiaria(checkIn, checkOut) {
     const tout = Date.UTC(yout, mout -1, dout);
 
 }
+*/
 
 export default function RoomCard(itemCard, i = 0) {
     const {
