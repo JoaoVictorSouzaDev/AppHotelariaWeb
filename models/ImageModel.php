@@ -17,18 +17,20 @@
         }
 
         public static function create($conn, $data) {
+
             $sql = "INSERT INTO imagens (nome, caminho) VALUES (?,?)";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param(
             "ss", 
-            $data["nome"],
-            $data["caminho"]
+            $data["name"],
+            $data["path"]
             );
             $resultado = $stmt->execute();
             if ($resultado) {
                 return $conn->insert_id; 
             }
             return false;
+
         }
 
         public static function createRelationRoom($conn, $fk_quartos, $fk_imagens) {
@@ -48,7 +50,7 @@
             $stmt->execute();
             $result = $stmt->get_result();
             $photos = [];
-            while ($row = $result->fecth_assoc()) {
+            while ($row = $result->fetch_assoc()) {
                 $photos[] = $row['nome'];
             }
             return $photos;

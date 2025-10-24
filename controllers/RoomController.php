@@ -9,13 +9,14 @@ class RoomController {
     //public static $labels = ['nome', 'numero', 'qtd_cama_casal', 'qtd_cama_solteiro', 'preco', 'disponivel'];
 
     public static function create($conn, $data) {
+
         //ValidateController::issetData($data, self::$labels);
         
         $result = RoomModel::create($conn, $data);
         if ($result) {
             if ($data['fotos']){
                 $pictures = ImagesController::upload($data['fotos']);
-                foreach($picture['saves'] as $name) {
+                foreach($pictures['saves'] as $name) {
                     $idPhoto = ImageModel::create($conn, $name);
                     if ($idPhoto) {
                         ImageModel::createRelationRoom($conn, $result, $idPhoto);
@@ -59,8 +60,15 @@ class RoomController {
     }
 
     public static function getByAvaible($conn, $inicio, $fim, $qtdPessoas) {
-        $roomListAvaible = RoomModel::searchAvailable($conn, $inicio, $fim, $qtdPessoas);
-        return jsonResponse(['quartos' => $roomListAvaible]);
+        $result = RoomModel::searchAvailable($conn, $inicio, $fim, $qtdPessoas);
+        if($result){
+            foreach ($result as &$quarto) {
+                $quarto['fotos'] = ImageModel::searchByRoomId($conn, $quarto['id']);
+            }
+            return jsonResponse(['Quartos'=> $result]);
+        }else{
+            return jsonResponse(['message'=> 'não tem quartos disponiveis'], 400);
+        }
     }
 }
 ?>

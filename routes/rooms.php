@@ -23,7 +23,7 @@
     
     } else if ($_SERVER['REQUEST_METHOD'] === "POST") {
         $data = json_decode(file_get_contents('php://input'), true);
-
+        
         if (isset($data['inicio']) && isset($data['fim'])) {
             $inicio = $data['inicio'];
             $fim = $data['fim'];
@@ -31,10 +31,12 @@
 
             $resultados = RoomController::getByAvaible($conn, $inicio, $fim, $qtdPessoas);
             jsonResponse(["mesage" => "quartos disponiveis",
-            "data" => $resultados]);
-        } else if (isset($data['nome'])) {
-            RoomController::create($conn, $data);
+                "data" => $resultados]);
 
+        } else if (isset($_POST)) {
+            $data = $_POST;
+            $data['fotos'] = $_FILES['fotos'] ?? null;
+            RoomController::create($conn, $data);
         } else {
             jsonResponse(["message" => "Atributos de requisição inválidos ou incompletos."], 400);
         }
