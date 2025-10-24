@@ -29,27 +29,19 @@ export async function listAvaibleRoomsRequest(inicio, fim, qtdPessoas) {
 
     return {
         ok: true,
-        data: Array.isArray(data?.quartos) ? data.quartos : []
+        data: Array.isArray(data?.Quartos) ? data.Quartos : []
     };
 }
 
-export async function createRoom(nome, numero, qtd_cama_casal, qtd_cama_solteiro, preco, disponivel) {
-    const dados = {
-        nome, 
-        numero, 
-        qtd_cama_casal,
-        qtd_cama_solteiro,
-        preco, 
-        disponivel
-    };
+export async function createRoom(formData) {
 
     const response = await fetch("api/rooms", {
         method: "POST",
         headers: {
             "Accept" : "application/json",
-            "Content-Type": "application/json"
         },
-        body : JSON.stringify(dados),
+
+        body : formData,
         credentials: "same-origin"
     });
 

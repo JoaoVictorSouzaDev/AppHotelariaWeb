@@ -15,11 +15,13 @@ function calcularDiaria(checkIn, checkOut) {
 export default function RoomCard(itemCard, i = 0) {
     const {
         nome,
-        numero,
         qtd_cama_casal,
         qtd_cama_solteiro,
-        preco
+        preco,
+        fotos
     } = itemCard || {};
+
+    let fotoPrincipal = fotos && fotos.length > 0 ? fotos[0] : 'FotoCard1.jpeg';
     
     const title = nome;
     
@@ -39,7 +41,7 @@ export default function RoomCard(itemCard, i = 0) {
     containerCard.innerHTML =
     `
     <div class="card h-100 shadow-sm border-0">
-        <img src="public/assets/images/FotoCard1.jpeg" class="card-img-top" alt="Imagem do Quarto ${title}">
+        <img src="uploads/${fotoPrincipal}" class="card-img-top" alt="Imagem do Quarto ${title}">
         <div class="card-body d-flex flex-column">
             
             <!-- Título (Nome do Quarto) e Número -->

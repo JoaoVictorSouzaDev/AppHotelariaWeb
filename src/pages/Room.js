@@ -41,6 +41,7 @@ export default function renderRoomPage() {
     if (existingButton) existingButton.remove();
 
     const inputNome = document.createElement('input');
+    inputNome.name = "nome";
     inputNome.className = "InputNome";
     inputNome.type = "text";
     inputNome.placeholder = "Nome do quarto";
@@ -51,6 +52,7 @@ export default function renderRoomPage() {
 
     // 2. Número
     const inputNumero = document.createElement('input');
+    inputNumero.name = "numero";
     inputNumero.className = "InputNumero";
     inputNumero.placeholder = "Numero do quarto";
     inputNumero.type = "text";
@@ -61,6 +63,7 @@ export default function renderRoomPage() {
 
     // 3. Quantidade de Camas de Casal
     const inputCamaCasal = document.createElement('input');
+    inputCamaCasal.name = "qtd_cama_casal";
     inputCamaCasal.placeholder = "Quantidade de camas de casal";
     inputCamaCasal.className = "InputCamaCasal";
     inputCamaCasal.type = "number";
@@ -72,6 +75,7 @@ export default function renderRoomPage() {
 
     // 4. Quantidade de Camas de Solteiro
     const inputCamaSolteiro = document.createElement('input');
+    inputCamaSolteiro.name = "qtd_cama_solteiro";
     inputCamaSolteiro.placeholder = "Quantidade de camas de solteiro";
     inputCamaSolteiro.className = "InputCamaSolteiro";
     inputCamaSolteiro.type = "number";
@@ -83,6 +87,7 @@ export default function renderRoomPage() {
 
     // 5. Preço
     const inputPreco = document.createElement('input');
+    inputPreco.name = "preco";
     inputPreco.placeholder = "Preço por noite em R$";
     inputPreco.className = "InputPreco";
     inputPreco.type = "number";
@@ -95,6 +100,7 @@ export default function renderRoomPage() {
 
     // 6. Disponibilidade (Select)
     const selectDisponivel = document.createElement('select');
+    selectDisponivel.name = 'disponivel';
     selectDisponivel.className = 'form-select InputDisponivel';
 
     const optionDefault = document.createElement('option');
@@ -132,8 +138,8 @@ export default function renderRoomPage() {
     inputFileInput.className = 'form-control';
     inputFileInput.type = 'file';
     inputFileInput.id = 'formFileMultiple'; 
-    inputFileInput.multiple = true;       
-    inputFileInput.name = 'room_images[]'; 
+    inputFileInput.multiple = true;
+    inputFileInput.name = 'fotos'; 
     divFileInput.appendChild(labelFile);
     divFileInput.appendChild(inputFileInput);
 
@@ -176,18 +182,18 @@ export default function renderRoomPage() {
         }
 
         if (inputCamaCasal.value.trim() === '' || isNaN(qtdCamaCasal) || qtdCamaCasal < 0) {
-             toggleErrorState(erroCamaCasal, inputCamaCasal, 'Quantidade de camas de casal inválida.');
-             hasValidationErrors = true;
+            toggleErrorState(erroCamaCasal, inputCamaCasal, 'Quantidade de camas de casal inválida.');
+            hasValidationErrors = true;
         }
 
         if (inputCamaSolteiro.value.trim() === '' || isNaN(qtdCamaSolteiro) || qtdCamaSolteiro < 0) {
-             toggleErrorState(erroCamaSolteiro, inputCamaSolteiro, 'Quantidade de camas de solteiro inválida.');
-             hasValidationErrors = true;
+            toggleErrorState(erroCamaSolteiro, inputCamaSolteiro, 'Quantidade de camas de solteiro inválida.');
+            hasValidationErrors = true;
         }
 
         if (inputPreco.value.trim() === '' || isNaN(preco) || preco <= 0) {
-             toggleErrorState(erroPreco, inputPreco, 'Preço inválido. Deve ser maior que zero.');
-             hasValidationErrors = true;
+            toggleErrorState(erroPreco, inputPreco, 'Preço inválido. Deve ser maior que zero.');
+            hasValidationErrors = true;
         }
 
         if (disponivel === '') {
@@ -199,16 +205,15 @@ export default function renderRoomPage() {
             return; 
         }
 
+        const formData = new FormData(contentForm);
+
+        formData.set('disponivel', selectDisponivel.value === 'true' ? 1 : 0);
+        
+        btnRegister.disabled = true;
+
         try {
-            const result = await createRoom(
-                nome, 
-                numero, 
-                qtdCamaCasal,
-                qtdCamaSolteiro,
-                preco,
-                disponivel === 'true'
-            );
-            
+            const result = await createRoom(formData);
+
             if (result.ok) {
                 console.log("Quarto Cadastrado com Sucesso!", result.data);
                 alert("Quarto " + nome + " cadastrado com sucesso!"); 
@@ -221,6 +226,8 @@ export default function renderRoomPage() {
         } catch (error) {
             console.error("Falha na comunicação com o servidor:", error.message || "Erro de rede.");
             alert("Falha ao tentar cadastrar: Erro de comunicação.");
+        } finally {
+            btnRegister.disabled = false;
         }
     });
 
