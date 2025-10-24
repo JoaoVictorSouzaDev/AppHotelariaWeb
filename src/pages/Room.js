@@ -139,7 +139,7 @@ export default function renderRoomPage() {
     inputFileInput.type = 'file';
     inputFileInput.id = 'formFileMultiple'; 
     inputFileInput.multiple = true;
-    inputFileInput.name = 'fotos'; 
+    inputFileInput.name = 'fotos[]'; 
     divFileInput.appendChild(labelFile);
     divFileInput.appendChild(inputFileInput);
 
