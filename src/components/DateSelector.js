@@ -88,6 +88,7 @@ export default function DateSelector() {
     divGuestsAmountWithMsgError.className = 'divCheckInWithMsgError';
 
     const guestsAmount = document.createElement('select');
+    guestsAmount.id = 'id-guestAmount';
     guestsAmount.className = 'card p-3 shadow-lg inputGuests js-guests-amount';
     guestsAmount.innerHTML = `
     <option value="">Quantas Pessoas?</option>

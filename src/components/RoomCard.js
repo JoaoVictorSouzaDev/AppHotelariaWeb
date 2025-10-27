@@ -1,4 +1,5 @@
-/* Arrumar
+import { addItemCart } from "../store/CartStore";
+
 function calcularDiaria(checkIn, checkOut) {
     const checkIn = "2026-01-01";
     const checkIn = "2026-01-08";
@@ -10,10 +11,11 @@ function calcularDiaria(checkIn, checkOut) {
     const tout = Date.UTC(yout, mout -1, dout);
 
 }
-*/
+
 
 export default function RoomCard(itemCard, i = 0) {
     const {
+        id,
         nome,
         qtd_cama_casal,
         qtd_cama_solteiro,
@@ -55,11 +57,46 @@ export default function RoomCard(itemCard, i = 0) {
             <!-- Preço e Botão de Ação -->
             <div class="d-flex justify-content-between align-items-center mt-auto pt-3 border-top">
                 <span class="h4 text-success">${precoQuarto} / Noite</span>
-                <a href="#" class="btn btn-primary">Reservar</a>
+                <a href="#" class="btn btn-primary btn-reservar">Reservar</a>
             </div>
         </div>
     </div>
     `;
 
+    cardDiv.querySelector(".btn-reservar").addEventListener('click', (e) => {
+        e.preventDefault();
+
+        const idDateCheckIn = document.getElementById("Check-In");
+        const idDateCheckOut = document.getElementById("Check-Out");
+        const idGuestAmount = document.getElementById("id-guestAmount");
+    
+        const inicio = (idDateCheckIn?.value || "").trim();
+        const fim = (idDateCheckOut?.value || "").trim();
+        const qtdPessoas = parseInt((idGuestAmount?.value || "0", 10).trim());
+
+        if (!inicio || !fim || Number,isNaN(qtdPessoas) || qtdPessoas <= 0) {
+            console.log("Prencha todos os campos!");
+            return;
+        }
+
+        const daily = calcularDiaria(inicio, fim);
+
+        const subtotal = parseFloat(preco) * daily;
+
+        const novoItemReserva = {
+            id, 
+            nome,
+            checkIn: inicio,
+            checkOur: fim,
+            guest: qtdPessoas,
+            daily,
+            subtotal
+        }
+
+        addItemCart(novoItemReserva);
+        alert(`Reserva do quarto ${nome} - Preço/Diaria: R$ ${preco} - N° de diárias: ${daily} - Subtotal: R$ ${subtotal}`);
+    });
+
+   
     return containerCard;
 }
