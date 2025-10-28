@@ -9,7 +9,7 @@ function calcularDiaria(checkIn, checkOut) {
     const tzout = Date.UTC(yout, mout -1, dout);
  
     console.log("Milissegundos desde 2026-01-01 00:00:00: " + tzin);
-    return Math.floor((tzout - tzin) / (100 * 60*60*24));
+    return Math.floor((tzout - tzin) / (1000 * 60*60*24));
 
 }
 
@@ -73,7 +73,7 @@ export default function RoomCard(itemCard, i = 0) {
     
         const inicio = (idDateCheckIn?.value || "").trim();
         const fim = (idDateCheckOut?.value || "").trim();
-        const qtdPessoas = parseInt(idGuestAmount?.value || "0", 10);
+        const qtdPessoas = parseInt(idGuestAmount?.value || "0", 30);
 
         if (!inicio || !fim || Number,isNaN(qtdPessoas) || qtdPessoas <= 0) {
             console.log("Prencha todos os campos!");
