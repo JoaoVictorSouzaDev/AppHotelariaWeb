@@ -1,14 +1,15 @@
-import { addItemCart } from "../store/CartStore";
+import { addItemToHotel_Cart } from "../store/CartStore.js";
 
 function calcularDiaria(checkIn, checkOut) {
-    const checkIn = "2026-01-01";
-    const checkIn = "2026-01-08";
-
+ 
     const [yin, min, din] = String(checkIn).split("-").map(Number);
     const [yout, mout, dout] = String(checkOut).split("-").map(Number);
-
-    const tin = Date.UTC(yin, min -1, din);
-    const tout = Date.UTC(yout, mout -1, dout);
+ 
+    const tzin = Date.UTC(yin, min -1, din);
+    const tzout = Date.UTC(yout, mout -1, dout);
+ 
+    console.log("Milissegundos desde 2026-01-01 00:00:00: " + tzin);
+    return Math.floor((tzout - tzin) / (100 * 60*60*24));
 
 }
 
@@ -38,7 +39,7 @@ export default function RoomCard(itemCard, i = 0) {
     }).format(preco || 0); 
 
     const containerCard = document.createElement('div');
-    containerCard.className = 'col-md-4 mb-4'; 
+    containerCard.className = 'mb-4'; 
 
     containerCard.innerHTML =
     `
@@ -63,7 +64,7 @@ export default function RoomCard(itemCard, i = 0) {
     </div>
     `;
 
-    cardDiv.querySelector(".btn-reservar").addEventListener('click', (e) => {
+    containerCard.querySelector(".btn-reservar").addEventListener('click', (e) => {
         e.preventDefault();
 
         const idDateCheckIn = document.getElementById("Check-In");
@@ -72,7 +73,7 @@ export default function RoomCard(itemCard, i = 0) {
     
         const inicio = (idDateCheckIn?.value || "").trim();
         const fim = (idDateCheckOut?.value || "").trim();
-        const qtdPessoas = parseInt((idGuestAmount?.value || "0", 10).trim());
+        const qtdPessoas = parseInt(idGuestAmount?.value || "0", 10);
 
         if (!inicio || !fim || Number,isNaN(qtdPessoas) || qtdPessoas <= 0) {
             console.log("Prencha todos os campos!");
@@ -93,7 +94,7 @@ export default function RoomCard(itemCard, i = 0) {
             subtotal
         }
 
-        addItemCart(novoItemReserva);
+        addItemToHotel_Cart(novoItemReserva);
         alert(`Reserva do quarto ${nome} - Preço/Diaria: R$ ${preco} - N° de diárias: ${daily} - Subtotal: R$ ${subtotal}`);
     });
 

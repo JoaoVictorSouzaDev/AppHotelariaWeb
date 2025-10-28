@@ -1,8 +1,14 @@
+import { getCart, getTotalItems} from "../store/cartStore.js";
 import Navbar from "../components/Navbar.js";
 import Footer from "../components/Footer.js";
 import Grid from "../components/Grid.js";
 
+
+const { total, qtde_items } = getTotalItems();
+
+
 export default function renderCarPage() {
+
     const nav = document.getElementById('navbar');
     nav.innerHTML = '';
 
@@ -12,10 +18,11 @@ export default function renderCarPage() {
     const divRoot = document.getElementById('root');
     divRoot.innerHTML = '';
 
-    const grid = Grid();
+    const cartItems = getCart();
+
+    const grid = Grid(cartItems);
     grid.style.marginTop = '10%';
     divRoot.appendChild(grid);
-
 
     const foot = document.getElementById('footer');
     foot.innerHTML = '';

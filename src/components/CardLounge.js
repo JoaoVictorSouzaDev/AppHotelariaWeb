@@ -6,6 +6,7 @@ export default function CardLounge(cardLoungeItem, index) {
     } = cardLoungeItem || {}
  
     const CardLounge = document.createElement('div');
+    CardLounge.className = "classLounge"
     CardLounge.innerHTML =
     `<div class="card card-lounge-fixed"> 
         <img 

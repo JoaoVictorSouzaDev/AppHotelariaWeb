@@ -122,14 +122,6 @@ a {
     }
 }
 
-.cardDiv {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 3%;
-}
-
 .divDateSelector {
     display: flex;
     flex-direction: row;
@@ -192,8 +184,32 @@ a {
     margin: 0;
 }
 
+.cardDiv {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    margin: 0 5rem;
+}
+
 .cardLoungeDiv {
     display: flex;
     gap: 5%;
+    gap: 5% 30px;
+    row-gap: 30px;
     justify-content: center;
+    flex-wrap: wrap; 
+}
+
+.classLounge img {
+    width: 100%; 
+    height: 200px;
+    object-fit: cover; 
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.card-img-top {
+    height: 15rem;
+ 
 }

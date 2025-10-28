@@ -56,8 +56,6 @@ export default function renderHeroPage() {
     cardLoungeDiv.style.marginTop = '2%';
     divRoot.appendChild(cardLoungeDiv);
 
-
-
     const loungeItems = [
         {path: "FotoReustarante.jpeg", title: "Restaurante", text: "Nosso restaurante é um espaço agradavel e familiar!"},
         {path: "FotoSpa.jpeg", title: "SPA", text: "Nosso SPA é ideal para momentos de relaxamento!"},
