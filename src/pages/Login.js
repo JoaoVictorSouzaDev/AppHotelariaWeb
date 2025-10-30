@@ -34,9 +34,7 @@ export default function renderLoginPage() {
 
         try {
                 const result = await loginRequest(email, senha);
-                
                 saveToken(result.token); 
-
                 const userType = result.tipoUsuario; 
                 
                 if (userType === 'client' || userType === 'user') {

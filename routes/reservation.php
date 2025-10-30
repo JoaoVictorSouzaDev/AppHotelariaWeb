@@ -1,7 +1,5 @@
 <?php
 
-    //Pronto
-
     require_once __DIR__ . "/../controllers/ReservationController.php";
 
     if ($_SERVER['REQUEST_METHOD'] === "GET") {
