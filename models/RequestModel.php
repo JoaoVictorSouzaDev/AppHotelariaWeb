@@ -68,8 +68,8 @@
 
             try {
                 $orderId = self::create($conn, [
-                    "fk_clientes" => $usuarioId,
-                    "fk_usuarios" => $clienteId,
+                    "fk_clientes" => $clienteId,
+                    "fk_usuarios" => $usuarioId,
                     "pagamento" => $pagamento
                 ]);
 

@@ -1,39 +1,52 @@
-export async function finishedOrder(){
-    const url = "api/order/reservation";
- 
-    const body = {
-       pagamento: "pix",
-       quartos: getTotalItems.map(it => (
-        {
-         id: it.roomId,
-         inicio: it.checkIn,
-         fim: it.checkOut
-        }
-       ))
-};
-    const res = await fetch(url, {
-        method: "POST",
-        headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
-        },
-        credentials : "same-origin",
-        body: JSON.stringify(body)
-    });
+import { getToken} from "../api/authAPI.js";
+import { clearHotel_Cart } from "../store/cartStore.js";
 
-    let data = null;
 
+export async function finishedOrder(cartItems, metodoPagamento){
     try {
-        data = await res.json();
-    }
+        const token = getToken();
+       
+        if (!token) {
+            alert("Você precisa estar logado para fazer uma reserva");
+            return false;
+        }
  
-    catch { data = null;}
+        const reservaData = {
+            pagamento: metodoPagamento,
+            quartos: cartItems.map(item => ({
+                id: item.id,
+                inicio: item.checkIn,
+                fim: item.checkOur,
+                qtd_hospedes: item.guest,
+                preco_total: item.subtotal
+            }))
+        };
 
-    if(!data){
-        const message = `Erro ao enviar pedido: ${res.status}`;
-        return {ok: false, raw: data, message};}
-    return {
-        ok: true,
-        raw: data
+        const response = await fetch("api/request/reservation", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify(reservaData),
+            credentials: "include"
+        });
+
+        const result = await response.json();
+ 
+        if (response.ok) {
+            alert("Reserva realizada com sucesso!");
+            clearHotel_Cart();
+            return true;
+        } else {
+            alert("Erro ao realizar reserva: " + (result.message || "Erro desconhecido"));
+            return false;
+        }
+ 
+    } catch (error) {
+        console.error("Erro na reserva:", error);
+        alert("Erro de comunicação ao tentar reservar");
+        return false;
     }
 }

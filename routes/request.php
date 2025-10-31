@@ -1,6 +1,7 @@
 <?php
 
     require_once __DIR__ . "/../controllers/RequestController.php";
+    require_once "helpers/token_jwt.php";
 
     if ($_SERVER['REQUEST_METHOD'] === "GET") {
         $id = $segments[2] ?? null;
@@ -15,6 +16,7 @@
         $user = validateTokenAPI("cliente");
         $opcao = $segments[2] ?? null;
         $data = json_decode(file_get_contents('php://input'), true);
+        $data['cliente_id'] = $user['id'];
 
         if ($opcao == "reservation") {
             RequestController::createRequest($conn, $data);

@@ -29,7 +29,9 @@ export function removeItemFromHotel_Cart(i) {
 }
 
 export function clearHotel_Cart() {
-  setCart([]);
+  setCart({
+      items: []
+    });
 }
 
 export function getTotalItems() {
