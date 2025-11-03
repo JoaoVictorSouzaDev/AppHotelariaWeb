@@ -1,6 +1,5 @@
 import { getToken} from "../api/authAPI.js";
-import { clearHotel_Cart } from "../store/cartStore.js";
-
+import { clearHotel_Cart, getCart } from "../store/cartStore.js";
 
 export async function finishedOrder(cartItems, metodoPagamento){
     try {
@@ -38,6 +37,7 @@ export async function finishedOrder(cartItems, metodoPagamento){
         if (response.ok) {
             alert("Reserva realizada com sucesso!");
             clearHotel_Cart();
+            window.location.reload();
             return true;
         } else {
             alert("Erro ao realizar reserva: " + (result.message || "Erro desconhecido"));

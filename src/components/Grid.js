@@ -16,11 +16,19 @@ function mostrarPopupPagamento() {
                     </div>
                     <div class="modal-body">
                         <div class="form-check mb-3">
-                            <input class="form-check-input" type="radio" name="pagamento" id="pagamentoCartao" value="cartao" checked>
+                            <input class="form-check-input" type="radio" name="pagamento" id="pagamentoCartao" value="Crédito" checked>
                             <label class="form-check-label" for="pagamentoCartao">
-                                Cartão de Crédito/Débito
+                                Cartão de Crédito
                             </label>
                         </div>
+
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="radio" name="pagamento" id="pagamentoCartao" value="Débito" checked>
+                            <label class="form-check-label" for="pagamentoCartao">
+                                Cartão de Débito
+                            </label>
+                        </div>
+                        
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="pagamento" id="pagamentoPix" value="pix">
                             <label class="form-check-label" for="pagamentoPix">
@@ -102,7 +110,7 @@ export default function Grid(cartItems = [], onUpdateCart) {
 
     Grid.innerHTML = 
     `
-    <table class="table">
+    <table class="table" id="carrinho-quartos-tabela">
         <thead>
             <tr class="table-danger">
             <th scope="col" class="border-right w-50">Categoria do Quarto</th>

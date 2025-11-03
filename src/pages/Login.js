@@ -38,7 +38,8 @@ export default function renderLoginPage() {
                 const userType = result.tipoUsuario; 
                 
                 if (userType === 'client' || userType === 'user') {
-                    //window.location.pathname = "/AppHotelariaWeb/home";
+                    window.location.pathname = "/AppHotelariaWeb/home";
+                    alert("Login Realizado com sucesso");
                 } else {
                     console.error("Tipo de usuário inválido retornado pelo servidor. Valor:", userType);
                 }

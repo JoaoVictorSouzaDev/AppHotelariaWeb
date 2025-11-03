@@ -1,4 +1,15 @@
+import {getAuthenticatedUserCargo} from "../store/authstore.js";
+
 export default function Navbar() {
+
+    const userCargo = getAuthenticatedUserCargo(); 
+    const shouldShowRooms = (userCargo !== 'cliente'); 
+    const roomLinkHTML = `
+        <li class="nav-item">
+            <a class="nav-link" href="room">Quartos</a>
+        </li>
+    `;
+
     const navbar = document.createElement('div');
     navbar.className = "navbarTop"
     navbar.innerHTML = 
@@ -20,9 +31,7 @@ export default function Navbar() {
                 <a class="nav-link" href="login">Login</a>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="room">Quartos</a>
-                </li>
+                ${shouldShowRooms ? roomLinkHTML : ''}
 
             </ul>
 
